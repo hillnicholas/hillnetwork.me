@@ -1,5 +1,6 @@
 import React from 'react';
-import ContentManager from './Content';
+
+//import ContentManager from './Content';
 
 class Contact extends React.Component {
     render() {

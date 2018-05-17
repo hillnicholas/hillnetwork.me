@@ -7,11 +7,6 @@ import Portfolio from './content/Portfolio.js';
 import IosTethering from './content/IosTethering.js';
 import ErrorNotFound from './content/ErrorNotFound.js';
 
-
-// debugging
-const Blog = () => ( <h3> blog content </h3> );
-
-
 // defines the routes for the application.
 class Routes extends React.Component {
     render() {
@@ -23,7 +18,6 @@ class Routes extends React.Component {
                 <Route path="/about" component={About} />
                 <Route path="/portfolio" component={Portfolio} />
                 <Route path="/contact" component={Contact} />
-                <Route path="/blog" component={Blog} />
                 <Route path="/ios-tethering" component={IosTethering} />
                 <Route component={ErrorNotFound} />
             </Switch>

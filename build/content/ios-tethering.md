@@ -1,6 +1,6 @@
 # IOS 11.2 Free Wifi Tethering
 
-Mobile network providers and Apple have continuously restricted eusers from tethering their data. Here's a short workaround to use the data you pay for on separate device.
+Mobile network providers and Apple have continuously found ways to restrict users from tethering their data. Here's a short workaround to use the data you pay for on separate device.
 
 ### Required Software/Hardware
 * OpenVPN Server (can be ran on loopback), with an publicly facing SSH daemon 
@@ -12,7 +12,7 @@ iPhones allow SSH tunnels to be active on all interfaces. This can be exploited 
 
 This system will involve 3 networks:
 
-* **The ad-hoc WiFi network**- This connects the device we want to connect to the internet to the iPhone. Ad-hoc networks cannot currently be created on IOS 11.2.
+* **The ad-hoc WiFi network**- This connects the device we want to connect to the internet to the iPhone. Ad-hoc networks cannot currently be created on iPhone 11.2.
 * **The internet**- Your iPhone should be connected to the internet over the mobile network.
 * **The VPN**- We will create a VPN connection to route all traffic through a tunnel.
 

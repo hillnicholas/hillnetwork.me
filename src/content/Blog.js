@@ -2,6 +2,7 @@ import React from 'react';
 import ContentManager from './Content';
 import ReactMarkdown from 'react-markdown';
 
+// This isn't currently used. It's here for future development.
 
 class Home extends React.Component {
 

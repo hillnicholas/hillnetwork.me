@@ -232,7 +232,34 @@ body {
   height: 250px;
 }
 
+.why-hire-me-container {
+  padding-top: 20px;
+  padding-bottom: 80px;
+}
 .why-hire-me {
-  padding-top: 50px;
+  float: left;
+}
 
+.split-hire-me {
+  float: right;
+  display: block;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.split-hire-me input {
+  font-family: Verdana,sans-serif;
+  font-size: 14px;
+  float: right;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 150px;
+  margin: 20px;
+  border-radius: 5px;
+  background-color: #428bca;
+  color: white;
+  border-width: 0px;
 }

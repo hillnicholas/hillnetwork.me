@@ -1,6 +1,13 @@
 import React from 'react';
-import ContentManager from './Content';
+//import ContentManager from './Content';
 import ReactMarkdown from 'react-markdown';
+
+
+
+var CONFIG = {};
+
+CONFIG.docsURL = "https://docs.hillnetwork.me/";
+CONFIG.githubURL = "https://github.com/hillnicholas/";
 
 
 class Home extends React.Component {
@@ -17,7 +24,7 @@ class Home extends React.Component {
     render() {
         return (
             <div className="content-section">
-                <img className="centered" src="/img/picofme.jpg"/>
+                <img className="centered" alt="it's me!" src="/img/picofme.jpg"/>
                 <ReactMarkdown source={ this.state.content } />
                 { this.state.shouldHireContent }
             </div>
@@ -53,8 +60,6 @@ class Home extends React.Component {
                     word.charAt(0).toUpperCase() + word.substring(
                         Math.min(word.length,1), word.length ) 
                     ).join(" ");
-        
-        console.log( companyName );
 
         // check to make sure we dont have any prank kiddys making me look bad
         fetch("https://www.purgomalum.com/service/containsprofanity?text=" + companyName )
@@ -65,33 +70,43 @@ class Home extends React.Component {
             result => result.text()
         )
         .then( 
-            result => result == "true" ? window.location = "http://why.you.shouldbehiring.me" : null
-        )
-
-        // add the "hire me material"
-        fetch("/content/should-hire.md")
-        .then( 
-            success => success ? success : console.log("There was an error getting the content.")
-        )
-        .then(
-            content => content.text()
-        )
-        .then(
-            newContent => {
-                
-                const newContentJSX = (
-                    <div className="why-hire-me">
-                        <ReactMarkdown source={ "------------------" } />
-                        <h3> Why { companyName } Should Be Hiring Me: </h3>
-                        <ReactMarkdown source={ newContent } />
-                    </div>
-                );
-
-                this.setState( { shouldHireContent : newContentJSX }  )
+            result => { 
+                if (result === "true") {
+                    this.companyName = "You";
+                    window.location = "http://why.you.shouldbehiring.me"; 
+                }
             }
-        )
+        ).then( () => {
+            // add the "hire me material"
+            fetch("/content/should-hire.md")
+                .then( 
+                    success => success ? success : console.log("There was an error getting the content.")
+                )
+                .then(
+                    content => content.text()
+                )
+                .then(
+                    newContent => {
+                        
+                        const newContentJSX = (
+                            <div className="why-hire-me-container">
+                                <ReactMarkdown source={ "------------------" } />
+                                <div className="why-hire-me">
+                                    <h3> Why { companyName } Should Be Hiring Me: </h3>
+                                    <ReactMarkdown source={ newContent } />
+                                </div>
+                                <div className="split-hire-me">
+                                    <input type="button" value="View My Github" onClick={ () => window.open( CONFIG.githubURL, "_blank" ) } />
+                                    <input type="button" value="Read My Docs" onClick={ () => window.open( CONFIG.docsURL, "_blank" ) } />
+                                </div>
+                            </div>
+                        );
 
-        
+                        this.setState( { shouldHireContent : newContentJSX }  )
+                    }
+                );
+            }
+        );  
     }
 }
 

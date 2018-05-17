@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentManager from './Content';
+//import ContentManager from './Content';
 import ReactMarkdown from 'react-markdown';
 
 class ErrorNotFound extends React.Component {
@@ -14,7 +14,7 @@ class ErrorNotFound extends React.Component {
     render() {
         return (
             <div className="content-section">
-                <img className="coyote-404-img" src="/img/coyote404.png" />
+                <img className="coyote-404-img" alt="sorry" src="/img/coyote404.png" />
                 <ReactMarkdown source={ this.state.content } />
             </div>
         );

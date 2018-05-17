@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentManager from './Content';
+//import ContentManager from './Content';
 import ReactMarkdown from 'react-markdown';
 
 
