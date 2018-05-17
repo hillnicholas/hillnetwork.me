@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ReactMarkdown from 'react-markdown';
 /*
 function contentRetriever() {
     re
@@ -11,7 +11,7 @@ class ContentManager extends React.Component {
     constructor( props ) {
         super( props );
         this.state = { 
-            homeContent : "",
+            home : "",
             aboutContent : "",
             blogContent : "",
             portfolioContent : "",
@@ -23,10 +23,31 @@ class ContentManager extends React.Component {
 
     render() {
         console.log( this.state );
-        return this.state[ this.props.content ];
+    return ( <ReactMarkdown source={ this.state[ this.props.content ] } /> );
     }
 
     getContent() {
+        var page = "home"
+        //["home", "about", "portfolio"].forEach( page =>
+            fetch("/content/" + page )
+            .then( 
+                success => success ? success : console.log("There was an error getting the content.")
+            )
+            .then(
+                content => content.text()
+            )
+            .then(
+                function(newContent ) {
+                    var tmp = {};
+                    tmp[ page ] = newContent;
+                    console.log( this.state );
+                    this.setState( tmp );
+                }
+            )
+        //)
+    }
+    /*
+    getRemoteContent() {
         fetch("http://192.168.2.28:4000/rest/content")
         .then( result => result.status === 200 ? result.json() : null )
         .then(
@@ -45,7 +66,7 @@ class ContentManager extends React.Component {
                 }
             }
         );
-    }
+    }*/
 
 }
 

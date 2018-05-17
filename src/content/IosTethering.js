@@ -1,9 +1,8 @@
 import React from 'react';
-import ContentManager from './Content';
 import ReactMarkdown from 'react-markdown';
 
 
-class Portfolio extends React.Component {
+class IosTethering extends React.Component {
 
     constructor( props ) {
         super( props )
@@ -21,7 +20,7 @@ class Portfolio extends React.Component {
     }
 
     getLocalContent() {
-        fetch("/content/portfolio.md")
+        fetch("/content/ios-tethering.md")
         .then( 
             success => success ? success : console.log("There was an error getting the content.")
         )
@@ -29,11 +28,10 @@ class Portfolio extends React.Component {
             content => content.text()
         )
         .then(
-            newContent => this.setState( { content : newContent,
-                                         } )
+            newContent => this.setState( { content : newContent }  )
         )
     }
 }
 
 
-export default Portfolio;
+export default IosTethering;
