@@ -1,0 +1,18 @@
+
+
+proxy:
+  image: proxy
+  ports:
+    - 80:80
+    - 443:443
+  links:
+    - docssite:docssite
+    - mainsite:mainsite
+  volumes:
+    - test-ssl/:/etc/letsencrypt/live/hillnetwork.me
+
+docssite:
+  image: hillnetwork
+            
+mainsite:
+  image: shouldbehiring
