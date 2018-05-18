@@ -60,18 +60,18 @@ class Home extends React.Component {
                     word.charAt(0).toUpperCase() + word.substring(
                         Math.min(word.length,1), word.length ) 
                     ).join(" ");
-
+                
         // check to make sure we dont have any prank kiddys making me look bad
         fetch("https://www.purgomalum.com/service/containsprofanity?text=" + companyName )
         .then(
             success => success ? success : console.log("There was an error getting the content.")
         )
         .then(
-            result => result.text()
+            result => result ? result.text() : "false"
         )
         .then( 
             result => { 
-                if (result === "true") {
+                if (result === "true" ) {
                     this.companyName = "You";
                     window.location = "http://why.you.shouldbehiring.me"; 
                 }
@@ -107,7 +107,7 @@ class Home extends React.Component {
                     }
                 );
             }
-        );  
+        );      
     }
 }
 

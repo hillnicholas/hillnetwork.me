@@ -1,6 +1,7 @@
 import React from 'react';
 //import ContentManager from './Content';
 import ReactMarkdown from 'react-markdown';
+import { Link } from 'react-router-dom';
 
 
 class About extends React.Component {
@@ -13,6 +14,7 @@ class About extends React.Component {
         this.getLocalContent();
     }
     render() {
+        // I like to live dangerously dangerouslySetInnerHTML="true"
         return (
             <div className="content-section">
                 <ReactMarkdown source={ this.state.content } />
