@@ -1,8 +1,11 @@
-FROM nginx
+FROM nginx:alpine
 # website content
 
 RUN mkdir -p /usr/share/shouldbehiring.me/html \
- 	&& mkdir -p /etc/letsencrypt/live/hillnetwork.me/
+ 	&& mkdir -p /etc/letsencrypt/live/hillnetwork.me/ \
+	&& apk update \
+	&& apk add uwsgi-python \
+	&& apk add py-requests 
 
 
 # remove any existing configs
