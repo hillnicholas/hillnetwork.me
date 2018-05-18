@@ -87,7 +87,8 @@ class Home extends React.Component {
                 )
                 .then(
                     newContent => {
-                        
+                        //                                 
+
                         const newContentJSX = (
                             <div className="why-hire-me-container">
                                 <ReactMarkdown source={ "------------------" } />
