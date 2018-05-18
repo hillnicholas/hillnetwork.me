@@ -1,0 +1,284 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to my public portfolio!\n\n\n\n\nI have decided to create a full documentation site to discuss my technical knowledge, projects, and overall character. If you have any questions, please feel free to email me at nick@hillnetwork.me.\n\n\nAbout Me\n\n\n\n\n\nI'm currently a senior attending West Virginia University on track to graduate with a Bachelors Degree in Computer Science in the Fall of 2018. Between my schoolwork, my professional work, and my personal projects, I have been able to build a well-rounded functional knowledge in a number of areas of information technology.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#welcome-to-my-public-portfolio", 
+            "text": "I have decided to create a full documentation site to discuss my technical knowledge, projects, and overall character. If you have any questions, please feel free to email me at nick@hillnetwork.me.", 
+            "title": "Welcome to my public portfolio!"
+        }, 
+        {
+            "location": "/#about-me", 
+            "text": "I'm currently a senior attending West Virginia University on track to graduate with a Bachelors Degree in Computer Science in the Fall of 2018. Between my schoolwork, my professional work, and my personal projects, I have been able to build a well-rounded functional knowledge in a number of areas of information technology.", 
+            "title": "About Me"
+        }, 
+        {
+            "location": "/openstack/", 
+            "text": "Overview\n\n\nI have always been intrigued by the software that runs large-scale IaaS operations. The Openstack project has recently become a strong interest of mine, and I've been been studying various configurations, setups and deployments for it. This section will describe the various builds that I've done in the past.\n\n\nBuild 0: DevStack on Ubuntu\n\n\nThis was my first Openstack \"deployment\". It was extremely straightforward. All I had to do was clone the git repository and run the setup script, which took a really long time to run. This gave me some insight on how massive and complex the project really is. The biggest issue I had with this build was that it wasn't persistent, and I hadn't really learned anything about the underlying infrastructure since the playbooks configured the entire system automatically.\n\n\nBuild 1: Conjure-Up with Juju on Ubuntu + LXD\n\n\nThis build was also generally very simple to set up automatically. This time, the orchestration was performed by Juju, and provided some options that could be custom configured. I followed the process available on Ubuntu's documentation page for \ninstalling Openstack on localhost\n.\n\n\nBuild 2: Conjure-Up with Juju on Ubuntu Production Cluster\n\n\nThis build utilized juju for the orchestration and relied on MAAS to manage the bare metal. At the time, I had a Dell R900 with 128GB of RAM and 4 quad-core xeons, so emulating the minimal requirements with virtual machines was very doable. PXE was a little difficult because of how the virtual NICs were implemented, because any direct communications between the KVM host and the guest on a bridged connection had to be done on a separate virtual network. Just as I had the virtual \"bare metal\" infrastructure configured, I ended up selling the server.\n\n\nBuild 3: Openstack over Site-to-Site VPN with VMware ESXi and KVM on OpenSUSE Leap\n\n\nThis is my most recent project for the summer. This time, I will not be using playbooks to configure services. I've decided to do this to get a stronger understanding of how each Openstack component works and interacts with the other components. I'm also trying to learn about datacenter networking and IPSec tunnels, hence why I'm also building a site-to-site VPN.\n\n\nThe Services\n\n\nAs far as Openstack services go, this will be a minimal deployment, running only the following services:\n\n\n\n\nIdentity Service (Keystone)\n\n\nImage Service (Glance)\n\n\nNetworking Service (Neutron)\n\n\nCompute Service (Nova)\n\n\nDashboard Service (Horizon)\n\n\nBlock Storage Service (Cinder)\n\n\n\n\nThe Network\n\n\nThe network will consist of two main isolated subnets, connected to each other over IPsec. Their network access to the outside world will come from PFSense routers, which will prevent any outbound traffic going to the residential LAN that the isolated networks are contained in. \n\n\nThe Architecture\n\n\nThe following is a diagram for the proposed system:\n\n\n\nTo-do List\n\n\n\n\n\n\n\n\nService\n\n\nCompleted\n\n\nAddress\n\n\nSite\n\n\nAccess\n\n\n\n\n\n\n\n\n\n\nIPSec VPN Server\n\n\n yes \n\n\n52.53.197.197\n\n\nAWS\n\n\nSSH\n\n\n\n\n\n\nMorgantown Isolated Network\n\n\n yes \n\n\n172.16.4.0/24\n\n\nMorgantown\n\n\nIPsec\n\n\n\n\n\n\nRoadwarrior Network\n\n\n yes \n\n\n172.16.5.0/24\n\n\nMorgantown\n\n\nIPsec\n\n\n\n\n\n\nFrederick Isolated Network\n\n\n in progress \n\n\n172.16.6.0/24\n\n\nFrederick\n\n\nIPsec\n\n\n\n\n\n\nServer0 Hypervisor (ESXi)\n\n\n yes \n\n\n192.168.2.101\n\n\nMorgantown\n\n\nHTTPS\n\n\n\n\n\n\nServer1 Hypervisor (KVM)\n\n\n in progress \n\n\n192.168.2.102 (temp)\n\n\nFrederick\n\n\nSSH\n\n\n\n\n\n\nFrederick Management Gateway\n\n\n yes \n\n\n172.16.5.4\n\n\nFrederick\n\n\nHTTPS\n\n\n\n\n\n\nMorgantown Management Gateway\n\n\n yes \n\n\n172.16.5.5\n\n\nMorgantown\n\n\nHTTPS\n\n\n\n\n\n\nServer0 Gateway\n\n\n yes \n\n\n172.16.4.1\n\n\nMorgantown\n\n\nHTTPS\n\n\n\n\n\n\nDNS Server\n\n\n yes \n\n\n172.16.4.2\n\n\nMorgantown\n\n\nSSH\n\n\n\n\n\n\nIdentity Service\n\n\n in progress \n\n\n172.16.4.3\n\n\nMorgantown\n\n\nn/a\n\n\n\n\n\n\nImage Service\n\n\n no \n\n\n172.16.4.4\n\n\nMorgantown\n\n\nn/a\n\n\n\n\n\n\nNetworking Service\n\n\n no \n\n\n172.16.4.5\n\n\nMorgantown\n\n\nn/a\n\n\n\n\n\n\nDashboard Service\n\n\n no \n\n\n172.16.4.6\n\n\nMorgantown\n\n\nn/a\n\n\n\n\n\n\nCompute Service\n\n\n no \n\n\n172.16.4.7\n\n\nMorgantown\n\n\nn/a\n\n\n\n\n\n\nBlock Storage Service\n\n\n no \n\n\n172.16.4.8\n\n\nMorgantown\n\n\nn/a", 
+            "title": "Openstack builds"
+        }, 
+        {
+            "location": "/openstack/#overview", 
+            "text": "I have always been intrigued by the software that runs large-scale IaaS operations. The Openstack project has recently become a strong interest of mine, and I've been been studying various configurations, setups and deployments for it. This section will describe the various builds that I've done in the past.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/openstack/#build-0-devstack-on-ubuntu", 
+            "text": "This was my first Openstack \"deployment\". It was extremely straightforward. All I had to do was clone the git repository and run the setup script, which took a really long time to run. This gave me some insight on how massive and complex the project really is. The biggest issue I had with this build was that it wasn't persistent, and I hadn't really learned anything about the underlying infrastructure since the playbooks configured the entire system automatically.", 
+            "title": "Build 0: DevStack on Ubuntu"
+        }, 
+        {
+            "location": "/openstack/#build-1-conjure-up-with-juju-on-ubuntu-lxd", 
+            "text": "This build was also generally very simple to set up automatically. This time, the orchestration was performed by Juju, and provided some options that could be custom configured. I followed the process available on Ubuntu's documentation page for  installing Openstack on localhost .", 
+            "title": "Build 1: Conjure-Up with Juju on Ubuntu + LXD"
+        }, 
+        {
+            "location": "/openstack/#build-2-conjure-up-with-juju-on-ubuntu-production-cluster", 
+            "text": "This build utilized juju for the orchestration and relied on MAAS to manage the bare metal. At the time, I had a Dell R900 with 128GB of RAM and 4 quad-core xeons, so emulating the minimal requirements with virtual machines was very doable. PXE was a little difficult because of how the virtual NICs were implemented, because any direct communications between the KVM host and the guest on a bridged connection had to be done on a separate virtual network. Just as I had the virtual \"bare metal\" infrastructure configured, I ended up selling the server.", 
+            "title": "Build 2: Conjure-Up with Juju on Ubuntu Production Cluster"
+        }, 
+        {
+            "location": "/openstack/#build-3-openstack-over-site-to-site-vpn-with-vmware-esxi-and-kvm-on-opensuse-leap", 
+            "text": "This is my most recent project for the summer. This time, I will not be using playbooks to configure services. I've decided to do this to get a stronger understanding of how each Openstack component works and interacts with the other components. I'm also trying to learn about datacenter networking and IPSec tunnels, hence why I'm also building a site-to-site VPN.", 
+            "title": "Build 3: Openstack over Site-to-Site VPN with VMware ESXi and KVM on OpenSUSE Leap"
+        }, 
+        {
+            "location": "/openstack/#the-services", 
+            "text": "As far as Openstack services go, this will be a minimal deployment, running only the following services:   Identity Service (Keystone)  Image Service (Glance)  Networking Service (Neutron)  Compute Service (Nova)  Dashboard Service (Horizon)  Block Storage Service (Cinder)", 
+            "title": "The Services"
+        }, 
+        {
+            "location": "/openstack/#the-network", 
+            "text": "The network will consist of two main isolated subnets, connected to each other over IPsec. Their network access to the outside world will come from PFSense routers, which will prevent any outbound traffic going to the residential LAN that the isolated networks are contained in.", 
+            "title": "The Network"
+        }, 
+        {
+            "location": "/openstack/#the-architecture", 
+            "text": "The following is a diagram for the proposed system:", 
+            "title": "The Architecture"
+        }, 
+        {
+            "location": "/openstack/#to-do-list", 
+            "text": "Service  Completed  Address  Site  Access      IPSec VPN Server   yes   52.53.197.197  AWS  SSH    Morgantown Isolated Network   yes   172.16.4.0/24  Morgantown  IPsec    Roadwarrior Network   yes   172.16.5.0/24  Morgantown  IPsec    Frederick Isolated Network   in progress   172.16.6.0/24  Frederick  IPsec    Server0 Hypervisor (ESXi)   yes   192.168.2.101  Morgantown  HTTPS    Server1 Hypervisor (KVM)   in progress   192.168.2.102 (temp)  Frederick  SSH    Frederick Management Gateway   yes   172.16.5.4  Frederick  HTTPS    Morgantown Management Gateway   yes   172.16.5.5  Morgantown  HTTPS    Server0 Gateway   yes   172.16.4.1  Morgantown  HTTPS    DNS Server   yes   172.16.4.2  Morgantown  SSH    Identity Service   in progress   172.16.4.3  Morgantown  n/a    Image Service   no   172.16.4.4  Morgantown  n/a    Networking Service   no   172.16.4.5  Morgantown  n/a    Dashboard Service   no   172.16.4.6  Morgantown  n/a    Compute Service   no   172.16.4.7  Morgantown  n/a    Block Storage Service   no   172.16.4.8  Morgantown  n/a", 
+            "title": "To-do List"
+        }, 
+        {
+            "location": "/virtualization/", 
+            "text": "Overview\n\n\nOver the last several years, I have been able to develop a working knowledge for a number of hypervisors and system containers, including:\n\n Linux KVM\n\n LXD\n\n VMware ESXi\n\n Oracle Virtualbox\n\n\nI have focused mostly on KVM during the last several months but can work comfortably with the others through graphical management interfaces.\n\n\nKVM\n\n\nI use KVM frequently for testing projects and concepts that require full access to privileged system resources. I will also be using it to provide the compute service (Nova) for my most recent Openstack deployment.\n\n\nLXD\n\n\nI use LXD much more frequently on my desktop for testing and developing projects since it requires less resources. My two big servers are currently being used for an Openstack build, so I'm not currently using their resources for other test/dev environments. \n\n\nVMware ESXi\n\n\nMy experience with VMware has been solely with using the vSphere web console available with releases 6.5 and up. I am also using VMware ESXi for my most recent cloud project. \n\n\nOracle Virtualbox\n\n\nI used to use virtualbox much more before. I always found it to be a great tool to have on any desktop to run different operating systems when needed. As I moved more towards learning enterprise virtualization technology, my personal use of virtualbox has decreased. I still use Virtualbox frequently for my job with infosec at WVU to investigate malicious links and attachments.", 
+            "title": "Virtualization"
+        }, 
+        {
+            "location": "/virtualization/#overview", 
+            "text": "Over the last several years, I have been able to develop a working knowledge for a number of hypervisors and system containers, including:  Linux KVM  LXD  VMware ESXi  Oracle Virtualbox  I have focused mostly on KVM during the last several months but can work comfortably with the others through graphical management interfaces.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/virtualization/#kvm", 
+            "text": "I use KVM frequently for testing projects and concepts that require full access to privileged system resources. I will also be using it to provide the compute service (Nova) for my most recent Openstack deployment.", 
+            "title": "KVM"
+        }, 
+        {
+            "location": "/virtualization/#lxd", 
+            "text": "I use LXD much more frequently on my desktop for testing and developing projects since it requires less resources. My two big servers are currently being used for an Openstack build, so I'm not currently using their resources for other test/dev environments.", 
+            "title": "LXD"
+        }, 
+        {
+            "location": "/virtualization/#vmware-esxi", 
+            "text": "My experience with VMware has been solely with using the vSphere web console available with releases 6.5 and up. I am also using VMware ESXi for my most recent cloud project.", 
+            "title": "VMware ESXi"
+        }, 
+        {
+            "location": "/virtualization/#oracle-virtualbox", 
+            "text": "I used to use virtualbox much more before. I always found it to be a great tool to have on any desktop to run different operating systems when needed. As I moved more towards learning enterprise virtualization technology, my personal use of virtualbox has decreased. I still use Virtualbox frequently for my job with infosec at WVU to investigate malicious links and attachments.", 
+            "title": "Oracle Virtualbox"
+        }, 
+        {
+            "location": "/networking/", 
+            "text": "Overview\n\n\nI have focused a significant amount of time on learning IPv4 networking. I have a working knowledge of a number of protocols, including:\n\n\n\n\nLink Layer \n\n\nEthernet\n\n\n802.11 b/g/n (basic understanding)\n\n\n\n\n\n\nNetwork Layer\n\n\nIPv4\n\n\n\n\n\n\nTransport Layer\n\n\nTCP\n\n\nUDP\n\n\n\n\n\n\nApplication Layer\n\n\nSSH/SFTP\n\n\nFTP\n\n\nHTTP/HTTPS\n\n\n\n\n\n\n\n\nDuring my time with InfoSec, I was responsible for ensuring the data entered in our instance of SecurityCenter was correct. I developed an algorithm that helped compare the IP range values that are stored by the SecurityCenter instance with the values given to us by network operations. \n\n\nVPN technologies\n\n\nI have worked with a number of VPN technologies, including SSL/TLS based VPNs (OpenVPN), IPSec/IKE based VPNs (Strongswan) and PPTP VPNs (Windows RAS). I have built these with a combination of different configurations, including:\n\n\n\n\nsite-to-site\n\n\nhost-to-host\n\n\nremote access\n\n\nroute based\n\n\npolicy based\n\n\nlayer 2 tunneling\n\n\nlayer 3 tunneling\n\n\nEAP authentication\n\n\nPublic Key authentication\n\n\nMOBIKE\n\n\nVTI devices\n\n\nsplit tunneling\n\n\n\n\nStrongswan Simple Auto-configuration\n\n\nhttps://github.com/hillnicholas/easyswan\n\nI wrote a shell script that allows someone to create a simple full-tunnel VPN for roadwarrior clients. The script configures a basic public key infrastructure automatically. Users can be added with ease using the same script. The script currently only supports generating working configurations for public key authentication only.\n\n\nOpenVPN Tunneled Bridging\n\n\nhttps://github.com/hillnicholas/openvpnScripts\n\nI wrote a shell script that creates an Openvswitch bridge and automatically connects an OpenVPN TAP VTI device and adds a given ethernet port to it. This allows someone to connect to the VPN over the WiFi interface on their personal device, and have any other device connected to the ethernet on their personal device be automatically tunneled. This concept was tested, and was even able to relay DHCP discover and offer requests on the VPN server's subnet.\n\n\nRound-Robin VTI Switching\n\n\nhttps://github.com/hillnicholas/openvpnScripts/\n\nI wrote another shell script that allows a user with multiple connected VTI devices to switch the default route at given time intervals. This was just a conceptual project rather than something with an actual use case, but I thought it was pretty neat.\n\n\nSoftware Defined Networking\n\n\nFor easy management from the router, I have my LXD bridge and KVM hosts bridged to my LAN. I've used both Linux bridge and Openvswitch in the past. I'm also very comfortable with iproute2 utilities. \n\n\nPFSense\n\n\nI have been using PFsense for my Openstack cloud project, and have been utilizing it's advanced firewall features and IPsec VPN support.\n\n\nDD-WRT\n\n\nI use DD-WRT for both my LAN in Morgantown and my LAN in Frederick. I found DD-WRT to be very customizable as well, and frequently use a number of it's features.\n\n\nCisco IOS\n\n\nAll of my wired devices have been connected to a Catalyst 3560 switch. I have a number of VLANs that I use to help segment my network.", 
+            "title": "Networking"
+        }, 
+        {
+            "location": "/networking/#overview", 
+            "text": "I have focused a significant amount of time on learning IPv4 networking. I have a working knowledge of a number of protocols, including:   Link Layer   Ethernet  802.11 b/g/n (basic understanding)    Network Layer  IPv4    Transport Layer  TCP  UDP    Application Layer  SSH/SFTP  FTP  HTTP/HTTPS     During my time with InfoSec, I was responsible for ensuring the data entered in our instance of SecurityCenter was correct. I developed an algorithm that helped compare the IP range values that are stored by the SecurityCenter instance with the values given to us by network operations.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/networking/#vpn-technologies", 
+            "text": "I have worked with a number of VPN technologies, including SSL/TLS based VPNs (OpenVPN), IPSec/IKE based VPNs (Strongswan) and PPTP VPNs (Windows RAS). I have built these with a combination of different configurations, including:   site-to-site  host-to-host  remote access  route based  policy based  layer 2 tunneling  layer 3 tunneling  EAP authentication  Public Key authentication  MOBIKE  VTI devices  split tunneling", 
+            "title": "VPN technologies"
+        }, 
+        {
+            "location": "/networking/#strongswan-simple-auto-configuration", 
+            "text": "https://github.com/hillnicholas/easyswan \nI wrote a shell script that allows someone to create a simple full-tunnel VPN for roadwarrior clients. The script configures a basic public key infrastructure automatically. Users can be added with ease using the same script. The script currently only supports generating working configurations for public key authentication only.", 
+            "title": "Strongswan Simple Auto-configuration"
+        }, 
+        {
+            "location": "/networking/#openvpn-tunneled-bridging", 
+            "text": "https://github.com/hillnicholas/openvpnScripts \nI wrote a shell script that creates an Openvswitch bridge and automatically connects an OpenVPN TAP VTI device and adds a given ethernet port to it. This allows someone to connect to the VPN over the WiFi interface on their personal device, and have any other device connected to the ethernet on their personal device be automatically tunneled. This concept was tested, and was even able to relay DHCP discover and offer requests on the VPN server's subnet.", 
+            "title": "OpenVPN Tunneled Bridging"
+        }, 
+        {
+            "location": "/networking/#round-robin-vti-switching", 
+            "text": "https://github.com/hillnicholas/openvpnScripts/ \nI wrote another shell script that allows a user with multiple connected VTI devices to switch the default route at given time intervals. This was just a conceptual project rather than something with an actual use case, but I thought it was pretty neat.", 
+            "title": "Round-Robin VTI Switching"
+        }, 
+        {
+            "location": "/networking/#software-defined-networking", 
+            "text": "For easy management from the router, I have my LXD bridge and KVM hosts bridged to my LAN. I've used both Linux bridge and Openvswitch in the past. I'm also very comfortable with iproute2 utilities.", 
+            "title": "Software Defined Networking"
+        }, 
+        {
+            "location": "/networking/#pfsense", 
+            "text": "I have been using PFsense for my Openstack cloud project, and have been utilizing it's advanced firewall features and IPsec VPN support.", 
+            "title": "PFSense"
+        }, 
+        {
+            "location": "/networking/#dd-wrt", 
+            "text": "I use DD-WRT for both my LAN in Morgantown and my LAN in Frederick. I found DD-WRT to be very customizable as well, and frequently use a number of it's features.", 
+            "title": "DD-WRT"
+        }, 
+        {
+            "location": "/networking/#cisco-ios", 
+            "text": "All of my wired devices have been connected to a Catalyst 3560 switch. I have a number of VLANs that I use to help segment my network.", 
+            "title": "Cisco IOS"
+        }, 
+        {
+            "location": "/security/", 
+            "text": "Overview\n\n\nI've had a job in infosec with WVU for almost 2 years now. When I first started, I really didn't know very much about what I was doing. I've since learned a ton about vulnerability management, current security threats, and infrastructure. \n\n\nNessus\n\n\nI have a significant amount of experience with Nessus. This is the software we used to perform scans across the University Computers. I created an API wrapper that can interact with Nessus scanners, which can be found here: \nhttps://github.com/hillnicholas/pyNessus\n\n\nSecurityCenter\n\n\nOne of my duties with infosec was performing systems administration tasks and data entry on our SecurityCenter instance. I was able to master it's use. I also \nalmost\n fully automated all of the data entry for required to keep SecurityCenter up to date. More information this project can be found in \nthis document\n.", 
+            "title": "Security"
+        }, 
+        {
+            "location": "/security/#overview", 
+            "text": "I've had a job in infosec with WVU for almost 2 years now. When I first started, I really didn't know very much about what I was doing. I've since learned a ton about vulnerability management, current security threats, and infrastructure.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/security/#nessus", 
+            "text": "I have a significant amount of experience with Nessus. This is the software we used to perform scans across the University Computers. I created an API wrapper that can interact with Nessus scanners, which can be found here:  https://github.com/hillnicholas/pyNessus", 
+            "title": "Nessus"
+        }, 
+        {
+            "location": "/security/#securitycenter", 
+            "text": "One of my duties with infosec was performing systems administration tasks and data entry on our SecurityCenter instance. I was able to master it's use. I also  almost  fully automated all of the data entry for required to keep SecurityCenter up to date. More information this project can be found in  this document .", 
+            "title": "SecurityCenter"
+        }, 
+        {
+            "location": "/systems/", 
+            "text": "Overview\n\n\nI have experience with the following operating systems:\n\n- \nUbuntu\n\n- \nDebian\n\n- \nArchlinux\n\n- \nOpenSUSE Tumbleweed\n\n- \nFedora\n\n- \nDD-WRT\n\n- \nPFsense\n\n- \nWindows 7\n\n- \nWindows 10\n\n- \nWindows Server 2012\n  \n\n\nUbuntu\n\n\nUbuntu is what I've used the most. I've used the desktop and the server releases and some of the forked projects like xubuntu and lubuntu. I've been using 16.04 the most, but also have some experience with 14.04, and I'm just starting toI'm just starting to used 18.04. Since recently, I've only been using Ubuntu for servers becuase I'm trying to get a stronger grasp on the OpenSUSE/RHEL family of linux distributions. I really like the LXD project because I can containerize systems extremely easily. LXD is only available on Ubuntu as far as I know. My intention is to learn linux containers and docker enough where I can ditch LXD entirely.\n\n\nDebian\n\n\nI used to use debian 7 on my laptop. It was honestly a pain because I still didn't really know what I was doing. I did get tons of experience on the command line throught that though. There was a lot that didn't work out of the box. I still remember trying to get my sound keys to work.\n\n\nArchlinux\n\n\nTwo years later, I was able to forget about my struggles with debian and wanted a challenge again. I had always seen the extensive documentation for Archlinux and was always impressed by it. There was also a sense of respect for archlinux users, so naturally I wanted to try using it. I started out by throwing it on one of my servers. It was difficult to understand exactly what I was doing at first, but the documentation was pretty clear on exactly what needed to be done. After breaking and reinstalling Arch a couple of times, I got a solid grasp on what was going on. It was actually pretty neat to see the process of installing an operating system and I learned a lot just from that. This was also the most lightweight operating system I've used (maybe with the exception of some router/switch OSes) and everything required a lot more  manual configuration. I stuck with Arch for a while, using it for server builds and my desktop. I decided to ditch it around January of 2018 to get more experience with enterprise OSes. I only use it at work now in a VM for a couple tasks.\n\n\nOpenSUSE Tumbleweed\n\n\nI started using OpenSUSE pretty recently, probably starting in early April 2018. I'm using the beautiful KDE desktop with YAST2, where you really don't need to use the command line at all, even for most technical tasks. I like it so far. Theres still a lot I need to learn before I'd say I'm a true \"master\". \n\n\nFedora\n\n\nFedora was the first linux distro I dabbled with. I liked it a lot and probably learned the most on it. I used it for several months before distro hopping to something else. I'm now back to using Fedora on my desktop. I made this switch because Fedora is a part of the RHEL group of operating systems that I'm trying to get more experience with. Other than configuration files being in different places, and occasionally different formats, I'm not having too much trouble figuring the system out. The firewall is way different though. I'm able to poke some holes in the \"public\" firewall, but that's about it. I still need to learn about NAT and masquerading.\n\n\nDD-WRT\n\n\nI don't have much command-line experience with DD-WRT. I pretty much only use the web console unless I need to log in. I'll occasionally telnet in to look at the ARP tables but that's about it. I think I have a pretty solid knowldege of the features available in DD-WRT through the web console. I've used VLANs, static routes, OpenVPN, DHCP reservations, 802.11x, DNS, and access control features. \n\n\nPFsense\n\n\nI've only used PFsense recently but I think I used it pretty extensively in that time. I actually really liked PFsense and would rather use it that DD-WRT. The biggest issue with PFsense is I'm pretty sure it won't work on my router hardware. Otherwise, I would have replaced DD-WRT with it. The strongest features of PFsense in my opinion was the granular firewall options and the IPSec VPN features. I was able to create a site-to-site VPN connection really easily.\n\n\nWindows 7\n\n\nAh, windows. I know it, but not super well. as a client machine for general use, I can usually get it to do what I want. As far as automation and the whole .NET stack, I could be more skilled.\n\n\nWindows 10\n\n\nI feel the same way about Windows 10 as I do about Windows 7. I'm pretty good at using their new bash shell feature though. This is what I use at by infosec job. I've installed python and some automation tools, and I know the basics of powershell. \n\n\nWindows Server 2012\n\n\nAs far as the graphical interface goes, I'm able to set up windows services through the server manager very easily. I don't have any experience with windows server in a professional environment, but I was able to create a L2TP/IPsec VPN server with a couple clicks.", 
+            "title": "Operating Systems"
+        }, 
+        {
+            "location": "/systems/#overview", 
+            "text": "I have experience with the following operating systems: \n-  Ubuntu \n-  Debian \n-  Archlinux \n-  OpenSUSE Tumbleweed \n-  Fedora \n-  DD-WRT \n-  PFsense \n-  Windows 7 \n-  Windows 10 \n-  Windows Server 2012", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/systems/#ubuntu", 
+            "text": "Ubuntu is what I've used the most. I've used the desktop and the server releases and some of the forked projects like xubuntu and lubuntu. I've been using 16.04 the most, but also have some experience with 14.04, and I'm just starting toI'm just starting to used 18.04. Since recently, I've only been using Ubuntu for servers becuase I'm trying to get a stronger grasp on the OpenSUSE/RHEL family of linux distributions. I really like the LXD project because I can containerize systems extremely easily. LXD is only available on Ubuntu as far as I know. My intention is to learn linux containers and docker enough where I can ditch LXD entirely.", 
+            "title": "Ubuntu"
+        }, 
+        {
+            "location": "/systems/#debian", 
+            "text": "I used to use debian 7 on my laptop. It was honestly a pain because I still didn't really know what I was doing. I did get tons of experience on the command line throught that though. There was a lot that didn't work out of the box. I still remember trying to get my sound keys to work.", 
+            "title": "Debian"
+        }, 
+        {
+            "location": "/systems/#archlinux", 
+            "text": "Two years later, I was able to forget about my struggles with debian and wanted a challenge again. I had always seen the extensive documentation for Archlinux and was always impressed by it. There was also a sense of respect for archlinux users, so naturally I wanted to try using it. I started out by throwing it on one of my servers. It was difficult to understand exactly what I was doing at first, but the documentation was pretty clear on exactly what needed to be done. After breaking and reinstalling Arch a couple of times, I got a solid grasp on what was going on. It was actually pretty neat to see the process of installing an operating system and I learned a lot just from that. This was also the most lightweight operating system I've used (maybe with the exception of some router/switch OSes) and everything required a lot more  manual configuration. I stuck with Arch for a while, using it for server builds and my desktop. I decided to ditch it around January of 2018 to get more experience with enterprise OSes. I only use it at work now in a VM for a couple tasks.", 
+            "title": "Archlinux"
+        }, 
+        {
+            "location": "/systems/#opensuse-tumbleweed", 
+            "text": "I started using OpenSUSE pretty recently, probably starting in early April 2018. I'm using the beautiful KDE desktop with YAST2, where you really don't need to use the command line at all, even for most technical tasks. I like it so far. Theres still a lot I need to learn before I'd say I'm a true \"master\".", 
+            "title": "OpenSUSE Tumbleweed"
+        }, 
+        {
+            "location": "/systems/#fedora", 
+            "text": "Fedora was the first linux distro I dabbled with. I liked it a lot and probably learned the most on it. I used it for several months before distro hopping to something else. I'm now back to using Fedora on my desktop. I made this switch because Fedora is a part of the RHEL group of operating systems that I'm trying to get more experience with. Other than configuration files being in different places, and occasionally different formats, I'm not having too much trouble figuring the system out. The firewall is way different though. I'm able to poke some holes in the \"public\" firewall, but that's about it. I still need to learn about NAT and masquerading.", 
+            "title": "Fedora"
+        }, 
+        {
+            "location": "/systems/#dd-wrt", 
+            "text": "I don't have much command-line experience with DD-WRT. I pretty much only use the web console unless I need to log in. I'll occasionally telnet in to look at the ARP tables but that's about it. I think I have a pretty solid knowldege of the features available in DD-WRT through the web console. I've used VLANs, static routes, OpenVPN, DHCP reservations, 802.11x, DNS, and access control features.", 
+            "title": "DD-WRT"
+        }, 
+        {
+            "location": "/systems/#pfsense", 
+            "text": "I've only used PFsense recently but I think I used it pretty extensively in that time. I actually really liked PFsense and would rather use it that DD-WRT. The biggest issue with PFsense is I'm pretty sure it won't work on my router hardware. Otherwise, I would have replaced DD-WRT with it. The strongest features of PFsense in my opinion was the granular firewall options and the IPSec VPN features. I was able to create a site-to-site VPN connection really easily.", 
+            "title": "PFsense"
+        }, 
+        {
+            "location": "/systems/#windows-7", 
+            "text": "Ah, windows. I know it, but not super well. as a client machine for general use, I can usually get it to do what I want. As far as automation and the whole .NET stack, I could be more skilled.", 
+            "title": "Windows 7"
+        }, 
+        {
+            "location": "/systems/#windows-10", 
+            "text": "I feel the same way about Windows 10 as I do about Windows 7. I'm pretty good at using their new bash shell feature though. This is what I use at by infosec job. I've installed python and some automation tools, and I know the basics of powershell.", 
+            "title": "Windows 10"
+        }, 
+        {
+            "location": "/systems/#windows-server-2012", 
+            "text": "As far as the graphical interface goes, I'm able to set up windows services through the server manager very easily. I don't have any experience with windows server in a professional environment, but I was able to create a L2TP/IPsec VPN server with a couple clicks.", 
+            "title": "Windows Server 2012"
+        }, 
+        {
+            "location": "/programming/", 
+            "text": "Overview\n\n\nMy computer science courses focused largely on programming. Unfortunately, the number of languages they teach is quite small, but I was able to learn many of them on my own. I focused more on scripting languages than \"programming\" languages since they're more geared towards what I'm hoping to do in the future.\n\n\nPython\n\n\nThis is my strongest language. I've used it for a number of tasks, including automating my job. I used python for my compiler class as well. \n\n\nBash\n\n\nThis is definitely purely a scripting language, but I figured it's important to note. I've focused on using the command line for several years, and have create a number of scripts for various tasks. Some of these scripts can be found on my \ngithub\n.\n\n\nJava\n\n\nThis is what we've used the most in school. I've implented linked lists, hashmaps, binary search trees and parsers for my courses. We've also implemented several projects in java for school, including a subset of features in a relational database and a voting system.\n\n\nC\n\n\nThis one is tricky. We used C in a unix-like environment, so we've used a lot of features given to us by the kernel. We've also used C in our operating systems course, where we had to implement almost everything from scratch. While I have a strong understanding of the syntax and pointers in C, I'm still unfamilliar with many of the common libraries.", 
+            "title": "Programming"
+        }, 
+        {
+            "location": "/programming/#overview", 
+            "text": "My computer science courses focused largely on programming. Unfortunately, the number of languages they teach is quite small, but I was able to learn many of them on my own. I focused more on scripting languages than \"programming\" languages since they're more geared towards what I'm hoping to do in the future.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/programming/#python", 
+            "text": "This is my strongest language. I've used it for a number of tasks, including automating my job. I used python for my compiler class as well.", 
+            "title": "Python"
+        }, 
+        {
+            "location": "/programming/#bash", 
+            "text": "This is definitely purely a scripting language, but I figured it's important to note. I've focused on using the command line for several years, and have create a number of scripts for various tasks. Some of these scripts can be found on my  github .", 
+            "title": "Bash"
+        }, 
+        {
+            "location": "/programming/#java", 
+            "text": "This is what we've used the most in school. I've implented linked lists, hashmaps, binary search trees and parsers for my courses. We've also implemented several projects in java for school, including a subset of features in a relational database and a voting system.", 
+            "title": "Java"
+        }, 
+        {
+            "location": "/programming/#c", 
+            "text": "This one is tricky. We used C in a unix-like environment, so we've used a lot of features given to us by the kernel. We've also used C in our operating systems course, where we had to implement almost everything from scratch. While I have a strong understanding of the syntax and pointers in C, I'm still unfamilliar with many of the common libraries.", 
+            "title": "C"
+        }, 
+        {
+            "location": "/misc/", 
+            "text": "Overview\n\n\nI've done several interesting school projects over the years. This page holds a brief description of some of them.\n\n\nHaiku Generator\n\n\nThis was created during my compiler class using sentence structures. The assingment was to have a .txt file that contained a comma-separated table of predefined word and the season they relate to. The user then specifies the season, and a haiku get's generated for them. I took a slightly different approach. I was lazy, and didn't want to manually create a word table. My implementation was written in python and queried a REST API to find related words to a topic and used those. This took a shorter amount of time and also gave users an unlimited set of topics they could choose from, rather than just the 4 seasons. \n\n\nThis implementation also inspired me to create a twitter bot. The twitter bot code was based off the haiku generator but worked a little differently. It would parse every word in it's feed and their number of occurences in a dictionary. The words would then be sorted by occurence and used to form basic sentence structures. Additionally, the bot would go to the first profile in the feed, go to their followers list, and begin following a predetermined number of their followers. The issue was that the bot started following right-wing extremists, who followed other right-wing extremists. Because of how the bot was programmed, the bot would then start saying extreme right-wing statements. At that point, I decided to end the project. I may revisit it using an AI approach.\n\n\nFace Detecting Sentry Turret\n\n\nThis was my first major programming project. Before this course, I had never programmed anything. This assignment was what made me change my major to computer science. The assignment was very open-ended, and we just had to manipulate a robot arm with MATLAB code. Me and my partner, Will, decided we wanted to do something crazy. It turns out that MATLAB has tons of image processing features, including depth perception. So we decided to give the robot depth perception, so it could calculate the location of a person and point nerf guns in that direction. The project was a major success and very fun. The technical report for this project can be found here: \nEngr102project.pdf\n\n\nSimple Operating System\n\n\nThis was completed for CS450, the operating systems class. We learned about the history of operating systems and how they have evolved. We were assigned to create a (very) basic operating system in through a number of modules. The project was written almost entirely in C, with no system calls or libraries. The system call to perform the context switching had written in assembly. We had to implement the command handler that polled user input, define processes with process control block structs, implement the logic for the scheduler, and create a memory management system. The project was quite challenging, and very tedious. The material was rewarding to learn.", 
+            "title": "Miscallaneous School Projects"
+        }, 
+        {
+            "location": "/misc/#overview", 
+            "text": "I've done several interesting school projects over the years. This page holds a brief description of some of them.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/misc/#haiku-generator", 
+            "text": "This was created during my compiler class using sentence structures. The assingment was to have a .txt file that contained a comma-separated table of predefined word and the season they relate to. The user then specifies the season, and a haiku get's generated for them. I took a slightly different approach. I was lazy, and didn't want to manually create a word table. My implementation was written in python and queried a REST API to find related words to a topic and used those. This took a shorter amount of time and also gave users an unlimited set of topics they could choose from, rather than just the 4 seasons.   This implementation also inspired me to create a twitter bot. The twitter bot code was based off the haiku generator but worked a little differently. It would parse every word in it's feed and their number of occurences in a dictionary. The words would then be sorted by occurence and used to form basic sentence structures. Additionally, the bot would go to the first profile in the feed, go to their followers list, and begin following a predetermined number of their followers. The issue was that the bot started following right-wing extremists, who followed other right-wing extremists. Because of how the bot was programmed, the bot would then start saying extreme right-wing statements. At that point, I decided to end the project. I may revisit it using an AI approach.", 
+            "title": "Haiku Generator"
+        }, 
+        {
+            "location": "/misc/#face-detecting-sentry-turret", 
+            "text": "This was my first major programming project. Before this course, I had never programmed anything. This assignment was what made me change my major to computer science. The assignment was very open-ended, and we just had to manipulate a robot arm with MATLAB code. Me and my partner, Will, decided we wanted to do something crazy. It turns out that MATLAB has tons of image processing features, including depth perception. So we decided to give the robot depth perception, so it could calculate the location of a person and point nerf guns in that direction. The project was a major success and very fun. The technical report for this project can be found here:  Engr102project.pdf", 
+            "title": "Face Detecting Sentry Turret"
+        }, 
+        {
+            "location": "/misc/#simple-operating-system", 
+            "text": "This was completed for CS450, the operating systems class. We learned about the history of operating systems and how they have evolved. We were assigned to create a (very) basic operating system in through a number of modules. The project was written almost entirely in C, with no system calls or libraries. The system call to perform the context switching had written in assembly. We had to implement the command handler that polled user input, define processes with process control block structs, implement the logic for the scheduler, and create a memory management system. The project was quite challenging, and very tedious. The material was rewarding to learn.", 
+            "title": "Simple Operating System"
+        }
+    ]
+}

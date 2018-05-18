@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Networking - Nick Hill's Public Portfolio</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Networking";
+    var mkdocs_page_input_path = "networking.md";
+    var mkdocs_page_url = "/networking/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Nick Hill's Public Portfolio</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../openstack/">Openstack builds</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Networking</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#overview">Overview</a></li>
+    
+
+    <li class="toctree-l2"><a href="#vpn-technologies">VPN technologies</a></li>
+    
+
+    <li class="toctree-l2"><a href="#strongswan-simple-auto-configuration">Strongswan Simple Auto-configuration</a></li>
+    
+
+    <li class="toctree-l2"><a href="#openvpn-tunneled-bridging">OpenVPN Tunneled Bridging</a></li>
+    
+
+    <li class="toctree-l2"><a href="#round-robin-vti-switching">Round-Robin VTI Switching</a></li>
+    
+
+    <li class="toctree-l2"><a href="#software-defined-networking">Software Defined Networking</a></li>
+    
+
+    <li class="toctree-l2"><a href="#pfsense">PFSense</a></li>
+    
+
+    <li class="toctree-l2"><a href="#dd-wrt">DD-WRT</a></li>
+    
+
+    <li class="toctree-l2"><a href="#cisco-ios">Cisco IOS</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../security/">Security</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../systems/">Operating Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../programming/">Programming</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../misc/">Miscallaneous School Projects</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Nick Hill's Public Portfolio</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Networking</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="overview">Overview</h2>
+<p>I have focused a significant amount of time on learning IPv4 networking. I have a working knowledge of a number of protocols, including:</p>
+<ul>
+<li>Link Layer <ul>
+<li>Ethernet</li>
+<li>802.11 b/g/n (basic understanding)</li>
+</ul>
+</li>
+<li>Network Layer<ul>
+<li>IPv4</li>
+</ul>
+</li>
+<li>Transport Layer<ul>
+<li>TCP</li>
+<li>UDP</li>
+</ul>
+</li>
+<li>Application Layer<ul>
+<li>SSH/SFTP</li>
+<li>FTP</li>
+<li>HTTP/HTTPS</li>
+</ul>
+</li>
+</ul>
+<p>During my time with InfoSec, I was responsible for ensuring the data entered in our instance of SecurityCenter was correct. I developed an algorithm that helped compare the IP range values that are stored by the SecurityCenter instance with the values given to us by network operations. </p>
+<h2 id="vpn-technologies">VPN technologies</h2>
+<p>I have worked with a number of VPN technologies, including SSL/TLS based VPNs (OpenVPN), IPSec/IKE based VPNs (Strongswan) and PPTP VPNs (Windows RAS). I have built these with a combination of different configurations, including:</p>
+<ul>
+<li>site-to-site</li>
+<li>host-to-host</li>
+<li>remote access</li>
+<li>route based</li>
+<li>policy based</li>
+<li>layer 2 tunneling</li>
+<li>layer 3 tunneling</li>
+<li>EAP authentication</li>
+<li>Public Key authentication</li>
+<li>MOBIKE</li>
+<li>VTI devices</li>
+<li>split tunneling</li>
+</ul>
+<h2 id="strongswan-simple-auto-configuration">Strongswan Simple Auto-configuration</h2>
+<p><a href="https://github.com/hillnicholas/easyswan">https://github.com/hillnicholas/easyswan</a><br />
+I wrote a shell script that allows someone to create a simple full-tunnel VPN for roadwarrior clients. The script configures a basic public key infrastructure automatically. Users can be added with ease using the same script. The script currently only supports generating working configurations for public key authentication only.</p>
+<h2 id="openvpn-tunneled-bridging">OpenVPN Tunneled Bridging</h2>
+<p><a href="https://github.com/hillnicholas/openvpnScripts/blob/master/site-to-site-bridge.sh">https://github.com/hillnicholas/openvpnScripts</a><br />
+I wrote a shell script that creates an Openvswitch bridge and automatically connects an OpenVPN TAP VTI device and adds a given ethernet port to it. This allows someone to connect to the VPN over the WiFi interface on their personal device, and have any other device connected to the ethernet on their personal device be automatically tunneled. This concept was tested, and was even able to relay DHCP discover and offer requests on the VPN server's subnet.</p>
+<h2 id="round-robin-vti-switching">Round-Robin VTI Switching</h2>
+<p><a href="https://github.com/hillnicholas/openvpnScripts/blob/master/route-switching.sh">https://github.com/hillnicholas/openvpnScripts/</a><br />
+I wrote another shell script that allows a user with multiple connected VTI devices to switch the default route at given time intervals. This was just a conceptual project rather than something with an actual use case, but I thought it was pretty neat.</p>
+<h2 id="software-defined-networking">Software Defined Networking</h2>
+<p>For easy management from the router, I have my LXD bridge and KVM hosts bridged to my LAN. I've used both Linux bridge and Openvswitch in the past. I'm also very comfortable with iproute2 utilities. </p>
+<h2 id="pfsense">PFSense</h2>
+<p>I have been using PFsense for my Openstack cloud project, and have been utilizing it's advanced firewall features and IPsec VPN support.</p>
+<h2 id="dd-wrt">DD-WRT</h2>
+<p>I use DD-WRT for both my LAN in Morgantown and my LAN in Frederick. I found DD-WRT to be very customizable as well, and frequently use a number of it's features.</p>
+<h2 id="cisco-ios">Cisco IOS</h2>
+<p>All of my wired devices have been connected to a Catalyst 3560 switch. I have a number of VLANs that I use to help segment my network.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../security/" class="btn btn-neutral float-right" title="Security">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../virtualization/" class="btn btn-neutral" title="Virtualization"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../virtualization/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../security/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

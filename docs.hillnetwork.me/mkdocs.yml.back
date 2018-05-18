@@ -1,0 +1,15 @@
+site_name: Nick Hill's Public Portfolio
+pages:
+       - Home: index.md
+       - Openstack builds: openstack.md
+       - Soft Skills: softskills.md
+       - Group Work: softskills.md
+       - Virtualization: virtualization.md
+       - Networking: networking.md
+       - Security: security.md
+       - Automation: security.md
+       - Services: services.md
+       - Operating Systems: systems.md
+       - Programming: backend.md
+       - Miscallaneous School Projects: misc.md
+theme: readthedocs

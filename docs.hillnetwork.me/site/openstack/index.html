@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Openstack builds - Nick Hill's Public Portfolio</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Openstack builds";
+    var mkdocs_page_input_path = "openstack.md";
+    var mkdocs_page_url = "/openstack/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Nick Hill's Public Portfolio</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Openstack builds</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#overview">Overview</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#build-0-devstack-on-ubuntu">Build 0: DevStack on Ubuntu</a></li>
+        
+            <li><a class="toctree-l3" href="#build-1-conjure-up-with-juju-on-ubuntu-lxd">Build 1: Conjure-Up with Juju on Ubuntu + LXD</a></li>
+        
+            <li><a class="toctree-l3" href="#build-2-conjure-up-with-juju-on-ubuntu-production-cluster">Build 2: Conjure-Up with Juju on Ubuntu Production Cluster</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l2"><a href="#build-3-openstack-over-site-to-site-vpn-with-vmware-esxi-and-kvm-on-opensuse-leap">Build 3: Openstack over Site-to-Site VPN with VMware ESXi and KVM on OpenSUSE Leap</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#the-services">The Services</a></li>
+        
+            <li><a class="toctree-l3" href="#the-network">The Network</a></li>
+        
+            <li><a class="toctree-l3" href="#the-architecture">The Architecture</a></li>
+        
+            <li><a class="toctree-l3" href="#to-do-list">To-do List</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../virtualization/">Virtualization</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../networking/">Networking</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../security/">Security</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../systems/">Operating Systems</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../programming/">Programming</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../misc/">Miscallaneous School Projects</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Nick Hill's Public Portfolio</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Openstack builds</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="overview">Overview</h1>
+<p>I have always been intrigued by the software that runs large-scale IaaS operations. The Openstack project has recently become a strong interest of mine, and I've been been studying various configurations, setups and deployments for it. This section will describe the various builds that I've done in the past.</p>
+<h2 id="build-0-devstack-on-ubuntu">Build 0: DevStack on Ubuntu</h2>
+<p>This was my first Openstack "deployment". It was extremely straightforward. All I had to do was clone the git repository and run the setup script, which took a really long time to run. This gave me some insight on how massive and complex the project really is. The biggest issue I had with this build was that it wasn't persistent, and I hadn't really learned anything about the underlying infrastructure since the playbooks configured the entire system automatically.</p>
+<h2 id="build-1-conjure-up-with-juju-on-ubuntu-lxd">Build 1: Conjure-Up with Juju on Ubuntu + LXD</h2>
+<p>This build was also generally very simple to set up automatically. This time, the orchestration was performed by Juju, and provided some options that could be custom configured. I followed the process available on Ubuntu's documentation page for <a href="https://www.ubuntu.com/download/cloud/try-openstack">installing Openstack on localhost</a>.</p>
+<h2 id="build-2-conjure-up-with-juju-on-ubuntu-production-cluster">Build 2: Conjure-Up with Juju on Ubuntu Production Cluster</h2>
+<p>This build utilized juju for the orchestration and relied on MAAS to manage the bare metal. At the time, I had a Dell R900 with 128GB of RAM and 4 quad-core xeons, so emulating the minimal requirements with virtual machines was very doable. PXE was a little difficult because of how the virtual NICs were implemented, because any direct communications between the KVM host and the guest on a bridged connection had to be done on a separate virtual network. Just as I had the virtual "bare metal" infrastructure configured, I ended up selling the server.</p>
+<h1 id="build-3-openstack-over-site-to-site-vpn-with-vmware-esxi-and-kvm-on-opensuse-leap">Build 3: Openstack over Site-to-Site VPN with VMware ESXi and KVM on OpenSUSE Leap</h1>
+<p>This is my most recent project for the summer. This time, I will not be using playbooks to configure services. I've decided to do this to get a stronger understanding of how each Openstack component works and interacts with the other components. I'm also trying to learn about datacenter networking and IPSec tunnels, hence why I'm also building a site-to-site VPN.</p>
+<h3 id="the-services">The Services</h3>
+<p>As far as Openstack services go, this will be a minimal deployment, running only the following services:</p>
+<ul>
+<li>Identity Service (Keystone)</li>
+<li>Image Service (Glance)</li>
+<li>Networking Service (Neutron)</li>
+<li>Compute Service (Nova)</li>
+<li>Dashboard Service (Horizon)</li>
+<li>Block Storage Service (Cinder)</li>
+</ul>
+<h3 id="the-network">The Network</h3>
+<p>The network will consist of two main isolated subnets, connected to each other over IPsec. Their network access to the outside world will come from PFSense routers, which will prevent any outbound traffic going to the residential LAN that the isolated networks are contained in. </p>
+<h3 id="the-architecture">The Architecture</h3>
+<p>The following is a diagram for the proposed system:
+<img src="/img/cloud.png"></p>
+<h3 id="to-do-list">To-do List</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Completed</th>
+<th>Address</th>
+<th>Site</th>
+<th>Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IPSec VPN Server</td>
+<td><span style="color: green;"> yes </span></td>
+<td>52.53.197.197</td>
+<td>AWS</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>Morgantown Isolated Network</td>
+<td><span style="color: green;"> yes </span></td>
+<td>172.16.4.0/24</td>
+<td>Morgantown</td>
+<td>IPsec</td>
+</tr>
+<tr>
+<td>Roadwarrior Network</td>
+<td><span style="color: green;"> yes </span></td>
+<td>172.16.5.0/24</td>
+<td>Morgantown</td>
+<td>IPsec</td>
+</tr>
+<tr>
+<td>Frederick Isolated Network</td>
+<td><span style="color: orange;"> in progress </span></td>
+<td>172.16.6.0/24</td>
+<td>Frederick</td>
+<td>IPsec</td>
+</tr>
+<tr>
+<td>Server0 Hypervisor (ESXi)</td>
+<td><span style="color: green;"> yes </span></td>
+<td>192.168.2.101</td>
+<td>Morgantown</td>
+<td>HTTPS</td>
+</tr>
+<tr>
+<td>Server1 Hypervisor (KVM)</td>
+<td><span style="color: orange;"> in progress </span></td>
+<td>192.168.2.102 (temp)</td>
+<td>Frederick</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>Frederick Management Gateway</td>
+<td><span style="color: green;"> yes </span></td>
+<td>172.16.5.4</td>
+<td>Frederick</td>
+<td>HTTPS</td>
+</tr>
+<tr>
+<td>Morgantown Management Gateway</td>
+<td><span style="color: green;"> yes </span></td>
+<td>172.16.5.5</td>
+<td>Morgantown</td>
+<td>HTTPS</td>
+</tr>
+<tr>
+<td>Server0 Gateway</td>
+<td><span style="color: green;"> yes </span></td>
+<td>172.16.4.1</td>
+<td>Morgantown</td>
+<td>HTTPS</td>
+</tr>
+<tr>
+<td>DNS Server</td>
+<td><span style="color: green;"> yes </span></td>
+<td>172.16.4.2</td>
+<td>Morgantown</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>Identity Service</td>
+<td><span style="color: orange;"> in progress </span></td>
+<td>172.16.4.3</td>
+<td>Morgantown</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>Image Service</td>
+<td><span style="color: red;"> no </span></td>
+<td>172.16.4.4</td>
+<td>Morgantown</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>Networking Service</td>
+<td><span style="color: red;"> no </span></td>
+<td>172.16.4.5</td>
+<td>Morgantown</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>Dashboard Service</td>
+<td><span style="color: red;"> no </span></td>
+<td>172.16.4.6</td>
+<td>Morgantown</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>Compute Service</td>
+<td><span style="color: red;"> no </span></td>
+<td>172.16.4.7</td>
+<td>Morgantown</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>Block Storage Service</td>
+<td><span style="color: red;"> no </span></td>
+<td>172.16.4.8</td>
+<td>Morgantown</td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../virtualization/" class="btn btn-neutral float-right" title="Virtualization">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../virtualization/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

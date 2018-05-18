@@ -1,0 +1,11 @@
+site_name: Nick Hill's Public Portfolio
+pages:
+       - Home: index.md
+       - Openstack builds: openstack.md
+       - Virtualization: virtualization.md
+       - Networking: networking.md
+       - Security: security.md
+       - Operating Systems: systems.md
+       - Programming: programming.md
+       - Miscallaneous School Projects: misc.md
+theme: readthedocs
