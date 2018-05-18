@@ -27,8 +27,6 @@ function main() {
 	docker build . -t nicks-webstack
 
 
-	# run the container
-	docker run --name test -p 80:80 -d nicks-webstack 
 
 	# show the container running
 	docker ps 
