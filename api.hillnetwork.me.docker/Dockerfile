@@ -12,7 +12,8 @@ RUN apk update \
 
 COPY uwsgi/api.hillnetwork.me.json /etc/uwsgi/conf.d/
 COPY flask/app.py /usr/share/api.hillnetwork.me/app.py
-COPY flask /usr/share/api.hillnetwork.me
+COPY flask/keys.json /keys.json
+
 
 EXPOSE 8080
 

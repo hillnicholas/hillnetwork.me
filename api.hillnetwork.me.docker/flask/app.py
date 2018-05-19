@@ -9,35 +9,82 @@ import json
 
 
 # Create a wrapper for more semantic meaning
-Public = Resource
+Public = Resource 
 
 
-SENDGRID_API_KEY = json.load( open('keys.json'))["sendgrid"] 
+# subclass of resource. 
+class CaptchaProtected( Resource ):
+
+    def __init__( self ): 
+        super( Resource, self ).__init__()
+        self._API_SECRET = json.load( open("/keys.json"))["reCAPTCHA"]["secretKey"] 
+        self._VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify"
+
+
+    def post( self ):
+        
+        if request.content_type == "application/json":
+            captcha = request.get_json().get("g-recaptcha-response", None )
+        else:
+            captcha = request.form.get("g-recaptcha-response", None )
+
+        # if no captcha, don't continue.
+        if not captcha:
+            return self.invalid_captcha()
+
+        response = requests.post(   self._VERIFY_URL, 
+                                    params = { "secret" : self._API_SECRET,
+                                            "response" : captcha 
+                                            }
+                                    )
+        # if not ok, return bad captcha
+        if not response.json()["success"]:
+            return self.invalid_captcha() 
+
+        # otherwise, its ok
+        return self.post_verified()    
+
+    def invalid_captcha( self ):
+        return {
+                 "status" : False,
+                 "message" : "Invalid captcha.",
+                }
+
+
 
 # API testing 
-class Test(Public):
-    def get(self):
-	return {"test" : "get" }
-    def post(self):
+class Test( CaptchaProtected ):
+    def post_verified(self):
 	return {"test" : "post" }
 
 
 
 # accepts a number of parameters and returns { status : $status }
-class ContactSubmit(Public):
+class ContactSubmit(CaptchaProtected):
 
+
+    def __init__(self ):
+        self._SENDGRID_API_KEY = json.load( open('/keys.json'))["sendgrid"] 
     def post(self):
-
+        
         # user-given fields
         params = request.get_json()
 
+        if not params:
+            return { "status" : "false",
+                     "message" : "Not enough parameters supplied."
+                     }
+            
         # make sure we have our required args
         if not set(["email","message"]).issubset(set(params)):
-            return { "status" : "false" }
+            return { "status" : "false",
+                     "message" : "Not enough parameters supplied."
+                     }
 
         user_name = params.get("name","")
         user_message = params["message"]
         user_email =  params["email"]
+
 
         # Our fields
         send_to = "nick@hillnetwork.me"
@@ -47,7 +94,7 @@ class ContactSubmit(Public):
       
         
         custom_headers = {
-                "Authorization" : "Bearer " + SENDGRID_API_KEY,
+                "Authorization" : "Bearer " + self._SENDGRID_API_KEY,
                 "Content-Type" : "application/json"
                 }
 
