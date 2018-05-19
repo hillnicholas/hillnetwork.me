@@ -1,11 +1,11 @@
 {
-  "name": "react1",
+  "name": "tmp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "react": "^16.3.2",
-    "react-copy": "^1.2.1",
     "react-dom": "^16.3.2",
+    "react-notifications": "^1.4.3",
     "react-scripts": "1.1.4"
   },
   "scripts": {

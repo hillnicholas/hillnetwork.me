@@ -1,5 +1,6 @@
 import React from 'react';
 import JSEncrypt from 'jsencrypt';
+import { NotificationContainer, NotificationManager} from 'react-notifications';
 
 //import ContentManager from './Content';
 
@@ -10,13 +11,13 @@ class Contact extends React.Component {
     render() {
         return (
             <div className="content-section">
-                
+		<NotificationContainer />                
                 <p className="contact-msg"> Feel free to contact me at <a href="mailto:nick@hillnetwork.me">nick@hillnetwork.me</a> or by using the form below. </p>
-                <form className="contact" action="https://formspree.io/nick@hillnetwork.me" method="POST">
+                <form id="contact-form" className="contact" action="https://api.hillnetwork.me/contact/submit" method="POST">
                     <input className="field" type="text" name="name" placeholder="Your name" />
                     <input className="field" type="text" name="email" placeholder="Your email" required/>
                     <textarea className="field" type="text" id="message" name="message" placeholder="Your message" required/>
-                    <input className="bottom-button" type="submit" value="submit" />
+                    <input className="bottom-button" type="button" value="Submit" onClick={ () => this.submitContactForm() } />
                     <input className="bottom-button" type="button" id="encrypt-button" value="Encrypt message" onClick={ () => this.copyPubKey() } />
                 </form>
             </div>
@@ -58,7 +59,39 @@ class Contact extends React.Component {
             }
         );
     }
+
+
+    submitContactForm() {
+
+	var form = document.getElementById("contact-form");
+
+	var payload = { 
+		name : form.name.value,
+		message : form.message.value,
+		email : form.email.value
+	}
+
+	fetch("https://api.hillnetwork.me/contact/submit", {
+		method : 'POST',
+		body : JSON.stringify(payload),
+		headers: new Headers({
+		    'Content-Type': 'application/json'
+		})
+	})
+	.then( response => response.json() )
+	.then(  function( json ) {
+		// debug	
+		console.log( json )
+		
+		var success = ( "success" in json ) ? json["success"] : false;
+	}	
+	);
+	NotificationManager.success('Success message', 'Title here'); 
+    };
+  
 }
 
+ 
 
+ 
 export default Contact;

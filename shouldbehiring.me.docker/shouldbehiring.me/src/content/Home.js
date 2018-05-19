@@ -75,7 +75,7 @@ class Home extends React.Component {
                     this.companyName = "You";
                     window.location = "http://why-you.shouldbehiring.me"; 
                 }
-                document.title="Why " + companyName + "Should Be Hiring Me";
+                document.title="Why " + companyName + " Should Be Hiring Me";
             }
         ).then( () => {
             // add the "hire me material"
