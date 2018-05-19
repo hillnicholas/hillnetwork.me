@@ -1,21 +1,34 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 
 from flask import Flask
+from flask_restful import Resource, Api
+
 application = Flask(__name__)
-
-@application.route("/")
-def hello():
-    return "<h1 style='color:blue'>Hello There!</h1>"
-
-@application.route("/test")
-def testing():
-    return '{"test" : "this is a test"}'
+api = Api( application )
 
 
-@application.route("/cgi-bin/")
-def cgi_handler():
-    return "abasdfasdfasdfASDfsdfS"
+class Public(Resource)
 
-if __name__ == "__main__":
-    application.run(host='0.0.0.0')
 
+class Test(Public):
+    def get(self):
+	return {"test" : "get" }
+    def post(self):
+	return {"test" : "post" }
+
+
+class ContactSubmit(Public):
+    def post(self):
+        return {'testing': 'testing'}
+
+
+
+# no authentication needed for these 
+api.add_resource( Test, '/test')
+api.add_resource( ContactSubmit , '/contact/submit')
+
+
+
+
+if __name__ == '__main__':
+    application.run(debug=True)
