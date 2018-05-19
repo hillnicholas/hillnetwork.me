@@ -1,6 +1,5 @@
 {"uwsgi" : {
-	"protocol" : "http",
-        "socket" : "http://0.0.0.0:80",
+        "http-socket" : "0.0.0.0:8080",
         "master" : true,
         "workers" : 4,
         "plugins" : "python",

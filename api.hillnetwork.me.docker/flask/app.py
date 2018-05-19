@@ -17,5 +17,5 @@ def cgi_handler():
     return "abasdfasdfasdfASDfsdfS"
 
 if __name__ == "__main__":
-    application.run(host='127.0.0.1')
+    application.run(host='0.0.0.0')
 

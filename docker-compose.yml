@@ -10,7 +10,8 @@ proxy:
     - mainsite:mainsite
     - apiserver:apiserver
   volumes:
-    - test-ssl/:/etc/letsencrypt/live/hillnetwork.me
+    - /etc/letsencrypt/live/hillnetwork.me/fullchain.pem:/etc/letsencrypt/live/hillnetwork.me/fullchain.pem
+    - /etc/letsencrypt/live/hillnetwork.me/privkey.pem:/etc/letsencrypt/live/hillnetwork.me/privkey.pem
 
 apiserver:
   image: apiserver-image
