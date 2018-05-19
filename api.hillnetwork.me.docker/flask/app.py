@@ -12,7 +12,7 @@ import json
 Public = Resource
 
 
-SENDGRID_API_KEY = json.load( open('/keys.json'))["sendgrid"] 
+SENDGRID_API_KEY = json.load( open('keys.json'))["sendgrid"] 
 
 # API testing 
 class Test(Public):
@@ -92,14 +92,20 @@ class ContactSubmit(Public):
             status = False
 
         return {"status": status,
-                "debug" : response.status_code }, 200, {"Access-Control-Allow-Origin" : "*" }
-
-
+                "debug" : response.status_code }
 
 
 
 
 application = Flask(__name__)
+
+@application.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response 
+
+
+
 api = Api( application )
 
 
