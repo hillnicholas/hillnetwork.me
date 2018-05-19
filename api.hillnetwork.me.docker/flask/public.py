@@ -7,7 +7,7 @@ import requests
 import json
 
 # Create a wrapper for more semantic meaning
-Public = Resource
+class HillnetworkResource(Resource):
 
 
 SENDGRID_API_KEY = json.load( open('keys.json'))["sendgrid"] 
@@ -90,7 +90,7 @@ class ContactSubmit(Public):
             status = False
 
         return {"status": status,
-                "debug" : response.status_code }
+                "debug" : response.status_code }, 200, {"Access-Control-Allow-Origin" : "*" }
 
 
 
