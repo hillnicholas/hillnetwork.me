@@ -1,7 +1,7 @@
 import React from 'react';
 import JSEncrypt from 'jsencrypt';
 import { NotificationContainer, NotificationManager} from 'react-notifications';
-
+import ReCAPTCHA from 'react-google-recaptcha';
 
 //import ContentManager from './Content';
 
@@ -9,6 +9,7 @@ class Contact extends React.Component {
     
     alreadyEncrypted = false;
     alreadySubmitted = false;
+    captchaValue = false;
     unencryptedHistory = "";
     render() {
         return (
@@ -19,13 +20,23 @@ class Contact extends React.Component {
                     <input className="field" type="text" name="name" placeholder="Your name" />
                     <input className="field" type="text" name="email" placeholder="Your email" required/>
                     <textarea className="field" type="text" id="message" name="message" placeholder="Your message" required/>
+
+  			<ReCAPTCHA
+				id="ugly-captcha"
+    				ref="recaptcha"
+				sitekey="6Ld-O1oUAAAAAIoUb4m9dI4wC_V1TElQPl--6eHm"
+    				onChange={ ( value ) => this.captchaValue = value }
+  			/>	
                     <input className="bottom-button" type="button" value="Submit" onClick={ () => this.submitContactForm() } />
                     <input className="bottom-button" type="button" id="encrypt-button" value="Encrypt message" onClick={ () => this.copyPubKey() } />
                 </form>
             </div>
         );
-    }
-
+    }  
+	// saving for now just in case 
+	//  <div id="ugly-capcha" className="g-recaptcha" data-sitekey="6Ld-O1oUAAAAAIoUb4m9dI4wC_V1TElQPl--6eHm" />
+	
+	
     copyPubKey() {
         fetch("/content/nick@hillnetwork.me.pem.pub")
         .then( 
@@ -63,11 +74,17 @@ class Contact extends React.Component {
     }
 
 
-    submitContactForm = () => {
+    submitContactForm = () => { 
 	if( this.alreadySubmitted ) {
 		NotificationManager.warning("You've already sent a message.", "Message Not Sent"); 
 		return;
 	}
+ 	
+	if( ! this.captchaValue ) {
+		NotificationManager.warning("Please complete the Captcha.", "Bad Captcha"); 
+		return;
+	}
+
 	var form = document.getElementById("contact-form");
 
 	// client-side checks for best UX- just check the email
@@ -79,12 +96,15 @@ class Contact extends React.Component {
 		return;
 	}
 
+	// the recaptcha key is named by the default POST parameter, to stick to convention
 	var payload = {
 		name : form.name.value,
 		message : form.message.value,
-		email : form.email.value
+		email : form.email.value,
+		"g-recaptcha-response" : this.captchaValue
 	}
 	
+
 	fetch("https://api.hillnetwork.me/contact/submit", {
 		method : 'POST',
 		body : JSON.stringify(payload),
