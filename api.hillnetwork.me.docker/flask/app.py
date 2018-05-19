@@ -65,13 +65,13 @@ class ContactSubmit(CaptchaProtected):
         params = request.get_json()
 
         if not params:
-            return { "status" : "false",
+            return { "status" : False,
                      "message" : "Not enough parameters supplied."
                      }
             
         # make sure we have our required args
         if not set(["email","message"]).issubset(set(params)):
-            return { "status" : "false",
+            return { "status" : False,
                      "message" : "Not enough parameters supplied."
                      }
 
