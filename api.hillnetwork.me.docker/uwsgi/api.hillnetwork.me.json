@@ -1,10 +1,10 @@
 {"uwsgi" : {
 	"protocol" : "http",
-        "socket" : "127.0.0.1:8080",
+        "socket" : "http://0.0.0.0:80",
         "master" : true,
         "workers" : 4,
         "plugins" : "python",
-        "wsgi-file" : "/usr/share/flask/restapi.py"
+        "wsgi-file" : "/usr/share/api.hillnetwork.me/app.py"
         }
 }
 

@@ -1,18 +1,22 @@
 
 
 proxy:
-  image: proxy
+  image: proxy-image
   ports:
     - 80:80
     - 443:443
   links:
     - docssite:docssite
     - mainsite:mainsite
+    - apiserver:apiserver
   volumes:
     - test-ssl/:/etc/letsencrypt/live/hillnetwork.me
 
+apiserver:
+  image: apiserver-image
+
 docssite:
-  image: hillnetwork
+  image: docssite-image
             
 mainsite:
-  image: shouldbehiring
+  image: mainsite-image

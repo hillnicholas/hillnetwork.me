@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL=localhost:8080
+URL=https://hillnetwork.me
 
 
 
@@ -14,7 +14,7 @@ function green {
 
 function test_url {
 	WEBPATH=$1
-	STATUS=`curl -I $URL$WEBPATH 2>/dev/null | sed -ne "s/HTTP\/1.1 \([\0-9]\+\).*/\1/p"`
+	STATUS=`curl --insecure -I $URL$WEBPATH 2>/dev/null | sed -ne "s/HTTP\/1.1 \([\0-9]\+\).*/\1/p"`
 	
 	if [ "$STATUS" = "200" ]; then
 		green "[$STATUS PASSED]\t"
