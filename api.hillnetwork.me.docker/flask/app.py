@@ -23,17 +23,22 @@ class Test(Public):
 
 
 
-# send a 
+# accepts a number of parameters and returns { status : $status }
 class ContactSubmit(Public):
 
     def post(self):
 
         # user-given fields
-        user_name = request.form.get("name","")
-        user_message = request.form["message"]
-        user_email =  request.form["email"]
+        params = request.get_json()
 
-       
+        # make sure we have our required args
+        if not set(["email","message"]).issubset(set(params)):
+            return { "status" : "false" }
+
+        user_name = params.get("name","")
+        user_message = params["message"]
+        user_email =  params["email"]
+
         # Our fields
         send_to = "nick@hillnetwork.me"
         send_from = "nick@hillnetwork.me"
@@ -91,8 +96,7 @@ class ContactSubmit(Public):
         except requests.exceptions.ConnectionError:
             status = False
 
-        return {"status": status,
-                "debug" : response.status_code }
+        return {"status": status }
 
 
 
