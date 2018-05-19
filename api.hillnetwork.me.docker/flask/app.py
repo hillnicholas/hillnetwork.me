@@ -102,6 +102,7 @@ application = Flask(__name__)
 @application.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Content-Type', 'text/json')
     return response 
 
 
