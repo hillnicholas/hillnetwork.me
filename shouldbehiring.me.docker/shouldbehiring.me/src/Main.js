@@ -68,14 +68,7 @@ class HeaderBackground extends React.Component {
         );
     }
 }
-/*
-<img className="header-bg" src="/img/logo.png" alt="I like this icon a lot" />
-                    <div className="title">
-                        <h1> Nicholas Hill </h1>
-                        <span>
-                            <p> Virtualization <span className="separator" /> Networking <span className="separator" /> Security </p> 
-                        </span>
-                    </div>*/
+
 
 /* the main frame. Defines the header, the navbar and the content. */
 class Main extends React.Component {

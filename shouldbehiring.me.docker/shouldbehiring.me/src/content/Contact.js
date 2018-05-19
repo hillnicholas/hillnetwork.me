@@ -122,6 +122,7 @@ class Contact extends React.Component {
 			form.name.value  = "";
 			form.email.value = "";
 			form.message.value = "";
+                        document.getElementById("encrypt-button").style.backgroundColor = "white";
 		}
 		else {
 			NotificationManager.error('There was an error sending your message.', 'Error')

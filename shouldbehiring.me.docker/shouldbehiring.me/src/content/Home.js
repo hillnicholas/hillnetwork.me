@@ -47,7 +47,6 @@ class Home extends React.Component {
     getShouldHire() {
 
         var match = /^http[s]*:\/\/why-([a-zA-Z0-9-]+).shouldbehiring.me/.exec(document.location);
-        console.log(match);
         // don't return anything if not under this domain
         if( ! match ) {
             console.log("debug: bad location");

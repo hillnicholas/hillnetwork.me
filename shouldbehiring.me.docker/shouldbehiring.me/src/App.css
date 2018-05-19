@@ -203,6 +203,7 @@ body {
 
 .content-section .bottom-button {
   font-family: Verdana,sans-serif;
+  font-size: 12px;
   float: right;
   display: block;
   text-align: center;
