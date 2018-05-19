@@ -52,12 +52,6 @@ class CaptchaProtected( Resource ):
 
 
 
-# API testing 
-class Test( CaptchaProtected ):
-    def post_verified(self):
-	return {"test" : "post" }
-
-
 
 # accepts a number of parameters and returns { status : $status }
 class ContactSubmit(CaptchaProtected):
@@ -164,7 +158,6 @@ api = Api( application )
 
 
 # no authentication needed for these 
-api.add_resource( Test, '/test')
 api.add_resource( ContactSubmit , '/contact/submit')
 
 
