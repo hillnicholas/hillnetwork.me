@@ -1,2 +1,3 @@
 node_modules/*
+api.hillnetwork.me.docker/flask/keys.json
 *.pem

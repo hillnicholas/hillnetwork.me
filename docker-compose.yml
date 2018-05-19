@@ -18,6 +18,7 @@ apiserver:
 
 docssite:
   image: docssite-image
-            
 mainsite:
   image: mainsite-image
+  volumes:
+    - /home/nick/shouldbehiring.me.docker/shouldbehiring.me/build/content:/usr/share/shouldbehiring.me/content
