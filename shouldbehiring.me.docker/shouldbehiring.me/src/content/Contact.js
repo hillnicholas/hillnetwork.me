@@ -2,11 +2,13 @@ import React from 'react';
 import JSEncrypt from 'jsencrypt';
 import { NotificationContainer, NotificationManager} from 'react-notifications';
 
+
 //import ContentManager from './Content';
 
 class Contact extends React.Component {
     
     alreadyEncrypted = false;
+    alreadySubmitted = false;
     unencryptedHistory = "";
     render() {
         return (
@@ -61,16 +63,28 @@ class Contact extends React.Component {
     }
 
 
-    submitContactForm() {
-
+    submitContactForm = () => {
+	if( this.alreadySubmitted ) {
+		NotificationManager.warning("You've already sent a message.", "Message Not Sent"); 
+		return;
+	}
 	var form = document.getElementById("contact-form");
 
-	var payload = { 
+	// client-side checks for best UX- just check the email
+	
+	var emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+	    
+	if( ! emailRegex.test( form.email.value ) ) {
+		NotificationManager.warning("Please enter a valid email.", "Bad Email"); 
+		return;
+	}
+
+	var payload = {
 		name : form.name.value,
 		message : form.message.value,
 		email : form.email.value
 	}
-
+	
 	fetch("https://api.hillnetwork.me/contact/submit", {
 		method : 'POST',
 		body : JSON.stringify(payload),
@@ -79,16 +93,22 @@ class Contact extends React.Component {
 		})
 	})
 	.then( response => response.json() )
-	.then(  function( json ) {
-		// debug	
-		console.log( json )
-		
-		var success = ( "success" in json ) ? json["success"] : false;
-	}	
-	);
-	NotificationManager.success('Success message', 'Title here'); 
-    };
-  
+	.then(   (json) => { 
+		if( json["status"] ) {  
+			NotificationManager.success('Your message has been sent.', 'Success!');
+			this.alreadySubmitted = true;
+			// clear everything from form	
+			var form = document.getElementById("contact-form");
+			form.name.value  = "";
+			form.email.value = "";
+			form.message.value = "";
+		}
+		else {
+			NotificationManager.error('There was an error sending your message.', 'Error')
+		}
+	}
+	)
+    }	
 }
 
  
