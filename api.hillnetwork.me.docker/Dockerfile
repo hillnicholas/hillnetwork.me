@@ -7,11 +7,11 @@ RUN apk update \
 	&& apk add uwsgi-python \
 	&& pip install flask \
 	&& pip install flask_restful \
-	&& pip install requests 
-
+	&& pip install requests \
+	&& mkdir -p /usr/share/api.hillnetwork.me
 
 COPY uwsgi/api.hillnetwork.me.json /etc/uwsgi/conf.d/
-COPY flask/app.py /usr/share/api.hillnetwork.me/app.py
+COPY flask /usr/share/api.hillnetwork.me
 COPY flask/keys.json /keys.json
 
 

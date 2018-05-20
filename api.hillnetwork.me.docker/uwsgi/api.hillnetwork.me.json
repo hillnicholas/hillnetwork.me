@@ -3,7 +3,8 @@
         "master" : true,
         "workers" : 4,
         "plugins" : "python",
-        "wsgi-file" : "/usr/share/api.hillnetwork.me/app.py"
+	"pythonpath" : "/usr/share/api.hillnetwork.me",
+        "wsgi-file" : "/usr/share/api.hillnetwork.me/entry.py"
         }
 }
 
