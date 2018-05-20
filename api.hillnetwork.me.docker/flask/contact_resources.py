@@ -4,61 +4,15 @@ from flask import request
 from flask_restful import Resource, Api
 import requests
 import json
-
-
-
-
-# Create a wrapper for more semantic meaning
-Public = Resource 
-
-
-# subclass of resource. 
-class CaptchaProtected( Resource ):
-
-    def __init__( self ): 
-        super( Resource, self ).__init__()
-        self._API_SECRET = json.load( open("/keys.json"))["reCAPTCHA"]["secretKey"] 
-        self._VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify"
-
-
-    def post( self ):
-        
-        if request.content_type == "application/json":
-            captcha = request.get_json().get("g-recaptcha-response", None )
-        else:
-            captcha = request.form.get("g-recaptcha-response", None )
-
-        # if no captcha, don't continue.
-        if not captcha:
-            return self.invalid_captcha()
-
-        response = requests.post(   self._VERIFY_URL, 
-                                    params = { "secret" : self._API_SECRET,
-                                            "response" : captcha 
-                                            }
-                                    )
-        # if not ok, return bad captcha
-        if not response.json()["success"]:
-            return self.invalid_captcha() 
-
-        # otherwise, its ok
-        return self.post_verified()    
-
-    def invalid_captcha( self ):
-        return {
-                 "status" : False,
-                 "message" : "Invalid captcha.",
-                }
-
-
-
+import config
+import resource_types
 
 # accepts a number of parameters and returns { status : $status }
-class ContactSubmit(CaptchaProtected):
+class ContactSubmit(resource_types.CaptchaProtected):
 
 
     def __init__(self ):
-        self._SENDGRID_API_KEY = json.load( open('/keys.json'))["sendgrid"] 
+        self._SENDGRID_API_KEY = json.load( open(config.KEY_FILE))["sendgrid"] 
     def post(self):
         
         # user-given fields
@@ -116,16 +70,8 @@ class ContactSubmit(CaptchaProtected):
                 }
               ]
             }
-    
-        # debug 
-        '''
-        return { "type" : "debug",
-                "name" : user_name,
-                "email" : user_email,
-                "message" : user_message,
-            }
-        '''
 
+        
         # now send the actual payload
         try:
             response = requests.post("https://api.sendgrid.com/v3/mail/send", 
@@ -138,31 +84,4 @@ class ContactSubmit(CaptchaProtected):
             status = False
 
         return {"status": status }
-
-
-
-
-application = Flask(__name__)
-
-@application.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    return response 
-
-
-
-api = Api( application )
-
-
-
-
-# no authentication needed for these 
-api.add_resource( ContactSubmit , '/contact/submit')
-
-
-
-
-if __name__ == '__main__':
-    application.run(debug=True)
 
