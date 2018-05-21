@@ -1,35 +1,16 @@
-from flask import session
-from flask import request
-from flask_restful import Resource 
-import re
-import time
-import json
-import hashlib
 import config
-import resource_types
-
-
-
-
-# Add_post 
-class Tester(resource_types.Authenticated):
-
-    def __init__(self):
-        pass
-
-    def get_authenticated( self ):
-        return { "debug_username" : session.get("username", False) }
-
-    def post_authenticated( self ):
-        return { "debug_username" : session.get("username", False) }
-
-
-########
-
+import time
+import hashlib
+import re
+import json
 import mysql.connector 
-# This will interact with the actual database.
-class HillnetworkDatabase:
 
+import blog
+
+# This class holds all methods that interact with the actual database.
+
+
+class HillnetworkDatabase:
 
     # creates the connections for 3 different users. One is for authentication,
     # one is for reading blog content and one is for editing/adding blog content.
@@ -54,18 +35,20 @@ class HillnetworkDatabase:
         hashed = crypt.hexdigest()
         if not re.search( config.USERNAME_REGEX, username ):
             return False
-        query = "SELECT passwordhash FROM users WHERE username=\"" + username +"\""
         cursor = self.connection["authenticator"].cursor()
-        cursor.execute( query )    
-        return cursor.next()[0] == hashed and cursor.arraysize == 1
+        query = ("SELECT passwordhash FROM users WHERE username= %s ;")
+        cursor.execute( query, (username,) ) 
+        results = cursor.fetchall()  
+        return len(results) == 1 and results[0] == hashed
 
 
-
+    # post content to the database. The timestamp is recorded on the database.
     def post_content( self, content ):
         # we need to verify the blog data is correct
-        if type( content ) != type( BlogPost() ) or not content.verify():
+        if not content.verify():
             return False
-        current_timestamp = time.time() 
+        print "test"
+        current_timestamp = time.time()  
 
         # connect to database and insert. We're just going to use the timestamp and call the  
         # SQL function to convert it for the database field. (don't do more work than we need to)
@@ -77,6 +60,8 @@ class HillnetworkDatabase:
                     ))
         self.connection["content_edit"].commit()
         cursor.close()
+        return True
+
 
 
     # get content between two valid timestamps. 
@@ -100,21 +85,16 @@ class HillnetworkDatabase:
                 ) for result in cursor )
 
 
-
-
-if __name__ == "__main__":
-    hndb = HillnetworkDatabase()
-
-    test = BlogPost()
-    test.set_title("testing ")
-    test.set_content(" this is test content ")
-    hndb.post_content( test )
-    test = BlogPost()
-    test.set_title("testing 2")
-    test.set_content(" this is test content 2")
-    hndb.post_content( test )
-    debug = hndb.fetch_content( 0, int(time.time()) )
-
-
-
-
+    # fetches the most recent posts
+    def fetch_most_recent( self, limit ):
+        # set boundaries
+        if limit < 0 or limit > 20:
+            return None
+        cursor = self.connection["content_read"].cursor()
+        query = "SELECT * FROM blog ORDER BY post_time DESC LIMIT %s"
+        cursor.execute( query, ( start_timestamp, end_timestamp ) )
+        return list( BlogPost(
+                 datetime=result[1],
+                 title=result[2],
+                 content=result[3]
+                ) for result in cursor )

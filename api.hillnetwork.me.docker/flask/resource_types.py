@@ -56,14 +56,20 @@ class Authenticated( Resource ):
 
     def post( self ):
         if "username" in session:
-            return self.post_authenticated()
+            if "post_authenticated" in dir(self):
+                return self.post_authenticated()
+            else:
+                return None, 405 
         else:
             return self._not_authenticated()
 
 
     def get( self ):
         if "username" in session:
-            return self.get_authenticated()
+            if "get_authenticated" in dir(self):
+                return self.get_authenticated()
+            else:
+                return None, 405 
         else:
             return self._not_authenticated()
 
