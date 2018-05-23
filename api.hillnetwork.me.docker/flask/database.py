@@ -34,12 +34,13 @@ class HillnetworkDatabase:
         crypt.update( password )
         hashed = crypt.hexdigest()
         if not re.search( config.USERNAME_REGEX, username ):
+            print "DEBUG: bad regex"
             return False
         cursor = self.connection["authenticator"].cursor()
         query = ("SELECT passwordhash FROM users WHERE username= %s ;")
         cursor.execute( query, (username,) ) 
         results = cursor.fetchall()  
-        return len(results) == 1 and results[0] == hashed
+        return len(results) == 1 and results[0][0] == hashed
 
 
     # post content to the database. The timestamp is recorded on the database.
@@ -71,14 +72,15 @@ class HillnetworkDatabase:
             start_timestamp > time.time() or \
             end_timestamp < 0 or \
             end_timestamp > time.time() or \
-            type( start_timestamp ) != type( int() ) or \
-            type( end_timestamp ) != type( int() ):
+            type( start_timestamp ) not in [ type(int()), type(long()) ] and \
+            type( end_timestamp )  not in [ type(int()), type(long()) ]:
             return False
 
         cursor = self.connection["content_read"].cursor()
         query = "SELECT * FROM blog WHERE UNIX_TIMESTAMP( post_time ) BETWEEN %s AND %s"
         cursor.execute( query, ( start_timestamp, end_timestamp ) )
-        return list( BlogPost(
+        print "executed"
+        return list( blog.BlogPost(
                  datetime=result[1],
                  title=result[2],
                  content=result[3]
@@ -88,12 +90,12 @@ class HillnetworkDatabase:
     # fetches the most recent posts
     def fetch_most_recent( self, limit ):
         # set boundaries
-        if limit < 0 or limit > 20:
-            return None
+        if limit < 0 or limit > 30:
+            limit = 30
         cursor = self.connection["content_read"].cursor()
         query = "SELECT * FROM blog ORDER BY post_time DESC LIMIT %s"
-        cursor.execute( query, ( start_timestamp, end_timestamp ) )
-        return list( BlogPost(
+        cursor.execute( query, ( limit, ) )
+        return list( blog.BlogPost(
                  datetime=result[1],
                  title=result[2],
                  content=result[3]
