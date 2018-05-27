@@ -21,13 +21,14 @@ class Home extends React.Component {
         );
     }
 
-    getLocalContent() {
-        fetch("/content/blog.md")
+    // initially, retrieve blog stuff
+    getInitialPosts() {
+        fetch("http://api.hillnetwork.me/blog")
         .then( 
             success => success ? success : console.log("There was an error getting the content.")
         )
         .then(
-            content => content.text()
+            content => content.json();
         )
         .then(
             newContent => this.setState( { content : newContent,

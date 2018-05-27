@@ -77,7 +77,17 @@ class HillnetworkDatabase:
             return False
 
         cursor = self.connection["content_read"].cursor()
-        query = "SELECT * FROM blog WHERE UNIX_TIMESTAMP( post_time ) BETWEEN %s AND %s"
+        query = """
+                SELECT 
+                    id,
+                    UNIX_TIMESTAMP( post_time ),
+                    title,
+                    content 
+                FROM blog 
+                WHERE 
+                    UNIX_TIMESTAMP( post_time ) BETWEEN %s AND %s
+                ;"""
+
         cursor.execute( query, ( start_timestamp, end_timestamp ) )
         print "executed"
         return list( blog.BlogPost(
@@ -93,9 +103,44 @@ class HillnetworkDatabase:
         if limit < 0 or limit > 30:
             limit = 30
         cursor = self.connection["content_read"].cursor()
-        query = "SELECT * FROM blog ORDER BY post_time DESC LIMIT %s"
+        query = """
+                SELECT 
+                    id,
+                    UNIX_TIMESTAMP( post_time ),
+                    title,
+                    content 
+                FROM blog 
+                ORDER BY post_time DESC LIMIT %s
+                ;"""
         cursor.execute( query, ( limit, ) )
         return list( blog.BlogPost(
+                 post_id=result[0],
+                 datetime=result[1],
+                 title=result[2],
+                 content=result[3]
+                ) for result in cursor )
+
+
+    # fetches the most recent posts
+    def fetch_at_offset( self, limit, offset ):
+        # set boundaries
+        if int(limit) < 0:
+            limit = 0
+        if int(limit) > 30:
+            limit = 30
+        cursor = self.connection["content_read"].cursor()
+        query = """
+                SELECT 
+                    id,
+                    UNIX_TIMESTAMP( post_time ),
+                    title,
+                    content 
+                FROM blog 
+                ORDER BY post_time DESC LIMIT %s OFFSET %s
+                ;"""
+        cursor.execute( query, ( int(limit), int(offset) ) )
+        return list( blog.BlogPost(
+                 post_id=result[0],
                  datetime=result[1],
                  title=result[2],
                  content=result[3]

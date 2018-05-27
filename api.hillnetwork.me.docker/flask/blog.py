@@ -5,6 +5,7 @@ from flask_restful import Resource, Api
 import requests
 import json
 
+import datetime
 import resource_types
 import database
 
@@ -12,7 +13,8 @@ import database
 # assumes input is validated.
 class BlogPost:
 
-    def __init__( self, title=False, content=False, datetime=False ):
+    def __init__( self, post_id=None, title=False, content=False, datetime=False ):
+        self._post_id = post_id
         self._title = title
         self._content = content
         self._datetime = datetime
@@ -41,15 +43,11 @@ class BlogPost:
         return type(self._title) == type(str()) and \
                 type(self._content) == type(str())
 
-    def to_json( self ):
-        return json.dumps({ 
-                            "title" : self._title,
-                            "content" : self._content
-                        })
-
     def to_dict( self ):
         return { 
+                "post_id" : self._post_id,
                 "title" : self._title,
+                "datetime" : self._datetime,
                 "content" : self._content
         }
  
@@ -96,7 +94,7 @@ class AdminBlog( resource_types.Authenticated ):
         response = { "success" : False }
         if message:
             response["message"] = message
-        return response
+        return response, 405
 
 
 
@@ -114,12 +112,14 @@ class Blog( resource_types.Public ):
 
     # by default, this will retrieve 
     def get( self ):
-        params = request.get_json()
+        params = request.args
 
         if params:
             start_time = params.get("start_time", None )
             end_time = params.get("end_time", None )
             most_recent = params.get("most_recent", None )
+            limit = params.get("limit", None )
+            offset = params.get("offset", None )
             # if both parameters are specified, use them. Otherwise, just return the most 
             # recent posts.
             results = None
@@ -128,7 +128,8 @@ class Blog( resource_types.Public ):
                 results = self.hndb.fetch_content( start_time, end_time )
             elif most_recent:
                 results = self.hndb.fetch_most_recent( most_recent )
-            
+            elif limit != None and offset != None:
+                results = self.hndb.fetch_at_offset( limit, offset )
             if not results:
                 return []
         # default to 5 most recent posts 
@@ -144,4 +145,4 @@ class Blog( resource_types.Public ):
         response = { "success" : False }
         if message:
             response["message"] = message
-        return response
+        return response, 405
