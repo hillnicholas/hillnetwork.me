@@ -1,9 +1,5 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-/*
-function contentRetriever() {
-    re
-}*/
 
 
 

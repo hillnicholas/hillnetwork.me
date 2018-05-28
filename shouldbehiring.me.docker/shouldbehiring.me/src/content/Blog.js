@@ -110,7 +110,7 @@ class Blog extends React.Component {
     }
 
     requestMoreExplorer = () => {
-        fetch("http://api.hillnetwork.me:8080/blog?limit=5&offset=" + this.offset.toString() )
+        fetch("https://api.hillnetwork.me/blog?limit=5&offset=" + this.offset.toString() )
         .then( 
             success => success ? success : console.log("There was an error getting the content.")
         )
@@ -155,7 +155,7 @@ class Blog extends React.Component {
     // initially, retrieve blog stuff
     getInitialPosts() {
 
-        fetch("http://api.hillnetwork.me:8080/blog")
+        fetch("https://api.hillnetwork.me/blog")
         .then( 
             success => success ? success : console.log("There was an error fulfilling this promise.")
         )
