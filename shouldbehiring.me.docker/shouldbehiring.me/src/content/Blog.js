@@ -52,7 +52,7 @@ class Blog extends React.Component {
         this.state = {
                 posts : [],
                 currentPost : null,
-            }
+            };
         this.offset = 5;
         this.getInitialPosts();
     }
@@ -154,6 +154,7 @@ class Blog extends React.Component {
 
     // initially, retrieve blog stuff
     getInitialPosts() {
+
         fetch("http://api.hillnetwork.me:8080/blog")
         .then( 
             success => success ? success : console.log("There was an error fulfilling this promise.")
@@ -170,14 +171,17 @@ class Blog extends React.Component {
                                     fetchedPosts[index].index = index;
                                 }
                                 // assign to state
-                                this.setState( { 
-                                            posts : fetchedPosts,
-                                            currentPost : fetchedPosts[0],
-                                } );
+                                this.setState( 
+                                            { 
+                                                posts : fetchedPosts,
+                                                currentPost : fetchedPosts[0]
+                                            });
                             }
         )
-    }
-}
+    }       
+}              
+
+
 
 
 export default Blog;

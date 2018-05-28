@@ -29,7 +29,10 @@ def after_request(response):
 api = Api( application )
 
 api.add_resource( authentication.Authenticator, '/auth/login' )
+
 api.add_resource( blog.AdminBlog , '/admin/blog')
+api.add_resource( blog.Blog , '/blog')
+
 api.add_resource( contact_resources.ContactSubmit , '/contact/submit')
 
 # test. remove before pushing to production
