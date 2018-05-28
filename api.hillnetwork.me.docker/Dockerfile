@@ -8,6 +8,7 @@ RUN apk update \
 	&& pip install flask \
 	&& pip install flask_restful \
 	&& pip install requests \
+	&& pip install mysql-connector \
 	&& mkdir -p /usr/share/api.hillnetwork.me
 
 COPY uwsgi/api.hillnetwork.me.json /etc/uwsgi/conf.d/
