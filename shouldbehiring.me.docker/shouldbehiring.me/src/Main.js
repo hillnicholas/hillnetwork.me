@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Home from './content/Home';
+import Blog from './content/Blog';
 import About from './content/About';
 import Contact from './content/Contact';
 import Portfolio from './content/Portfolio.js';
@@ -19,6 +20,7 @@ class Routes extends React.Component {
                 <Route path="/portfolio" component={Portfolio} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/ios-tethering" component={IosTethering} />
+                <Route path="/blog" component={Blog} />
                 <Route component={ErrorNotFound} />
             </Switch>
             </div>
@@ -37,6 +39,7 @@ class NavBar extends React.Component {
                 <Link to="/about"> About </Link>
                 <Link to="/portfolio"> Portfolio </Link>
                 <Link to="/contact"> Contact </Link>
+                <Link to="/blog">Blog </Link>
             </div>
         );
     }

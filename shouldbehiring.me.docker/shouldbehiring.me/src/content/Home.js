@@ -25,7 +25,7 @@ class Home extends React.Component {
         return (
             <div className="content-section">
                 <img className="centered" alt="it's me!" src="/img/picofme.jpg"/>
-                <ReactMarkdown source={ this.state.content } />
+                <ReactMarkdown source={ this.state.content } escapeHtml={false} />
                 { this.state.shouldHireContent }
             </div>
         );

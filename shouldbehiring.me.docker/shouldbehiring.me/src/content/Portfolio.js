@@ -15,7 +15,7 @@ class Portfolio extends React.Component {
     render() {
         return (
             <div className="content-section">
-                <ReactMarkdown source={ this.state.content } />
+                <ReactMarkdown source={ this.state.content } escapeHtml={false} />
             </div>
         );
     }

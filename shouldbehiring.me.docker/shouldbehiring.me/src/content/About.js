@@ -16,7 +16,7 @@ class About extends React.Component {
         // I like to live dangerously dangerouslySetInnerHTML="true"
         return (
             <div className="content-section">
-                <ReactMarkdown source={ this.state.content } />
+                <ReactMarkdown source={ this.state.content } escapeHtml={false} />
             </div>
         );
     }
