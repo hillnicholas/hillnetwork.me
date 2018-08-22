@@ -10,4 +10,4 @@ I really enjoy studying, reading and using linux systems. I've been using linux 
 
 
 ### Professional Goals
-I want to succeed in my career. I've learned recently that finding openings in this field can be very competitive. I'm hoping to get involved in projects that not only benefit a single company, but people in general. I also hope to contribute code to the mainline Linux kernel. 
+I want to succeed in my career. I've learned recently that finding openings in this field can be very competitive. I'm hoping to get involved in projects that not only benefit a single company, but people in general. I also hope to contribute code to more open source projects.

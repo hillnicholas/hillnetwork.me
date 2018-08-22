@@ -1,14 +1,12 @@
 # IOS 11.2 Free Wifi Tethering
 
-Mobile network providers and Apple have continuously restricted eusers from tethering their data. Here's a short workaround to use the data you pay for on separate device.
-
 ### Required Software/Hardware
 * OpenVPN Server (can be ran on loopback), with an publicly facing SSH daemon 
 * A device that supports ad-hoc wifi networks (most laptop/operating system combinations support this)
 * An IOS SSH client that supports port forwarding
 
 ### Overview
-iPhones allow SSH tunnels to be active on all interfaces. This can be exploited to forward a TCP port to a VPN server for full IP tunneling. You can also port forward to a proxy server, but this can be somewhat restricting.
+iPhones allow SSH tunnels to be active on all interfaces. This can be used to forward a TCP port to a VPN server for full IP tunneling. You can also port forward to a proxy server, but this can be somewhat restricting.
 
 This system will involve 3 networks:
 

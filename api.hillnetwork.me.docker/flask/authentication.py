@@ -24,7 +24,9 @@ class Authenticator( resource_types.Public ):
 
     def post( self ):
         
-        if request.content_type != "application/json":
+        if "application/json" not in request.content_type.replace(";"," ").split(" "): 
+            print( request.content_type )
+            print( request.content_type.split(" ") )
             return self._failed( message="bad content-type")
 
         credentials = request.get_json()

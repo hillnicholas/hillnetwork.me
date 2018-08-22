@@ -40,5 +40,5 @@ api.add_resource( test_sandbox.Tester , '/test')
  
 
 if __name__ == '__main__':
-    application.run(debug=True, port="8080", host="0.0.0.0")
+    application.run(port="8080", host="0.0.0.0")
 
