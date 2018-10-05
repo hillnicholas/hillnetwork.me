@@ -13,9 +13,6 @@ proxy:
     - /etc/letsencrypt/live/hillnetwork.me/fullchain.pem:/etc/letsencrypt/live/hillnetwork.me/fullchain.pem
     - /etc/letsencrypt/live/hillnetwork.me/privkey.pem:/etc/letsencrypt/live/hillnetwork.me/privkey.pem
 
-apiserver:
-  image: apiserver-image
-
 docssite:
   image: docssite-image
             
