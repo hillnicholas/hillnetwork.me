@@ -15,4 +15,4 @@ docssite:
 mainsite:
   image: mainsite-image
   volumes:
-    - shouldbehiring.me.docker/shouldbehiring.me/build/content/:/usr/share/shouldbehiring.me/html/content
+    - ./shouldbehiring.me.docker/shouldbehiring.me/build/content/:/usr/share/shouldbehiring.me/html/content
