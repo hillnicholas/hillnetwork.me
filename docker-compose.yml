@@ -4,7 +4,6 @@ proxy:
   image: proxy-image
   ports:
     - 80:80
-    - 443:443
   links:
     - docssite:docssite
     - mainsite:mainsite
