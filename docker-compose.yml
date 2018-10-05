@@ -8,10 +8,6 @@ proxy:
   links:
     - docssite:docssite
     - mainsite:mainsite
-    - apiserver:apiserver
-  volumes:
-    - /etc/letsencrypt/live/hillnetwork.me/fullchain.pem:/etc/letsencrypt/live/hillnetwork.me/fullchain.pem
-    - /etc/letsencrypt/live/hillnetwork.me/privkey.pem:/etc/letsencrypt/live/hillnetwork.me/privkey.pem
 
 docssite:
   image: docssite-image
@@ -19,4 +15,4 @@ docssite:
 mainsite:
   image: mainsite-image
   volumes:
-    - /home/nick/my-webstack/shouldbehiring.me.docker/shouldbehiring.me/build/content/:/usr/share/shouldbehiring.me/html/content
+    - shouldbehiring.me.docker/shouldbehiring.me/build/content/:/usr/share/shouldbehiring.me/html/content
