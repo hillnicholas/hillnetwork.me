@@ -1,6 +1,6 @@
 # IOS 11.2 Free Wifi Tethering
 
-Mobile network providers and Apple have continuously restricted eusers from tethering their data. Here's a short workaround to use the data you pay for on separate device.
+Mobile network providers and Apple frequently restrict users from tethering their data. Here's a short workaround to use the data you pay for on separate device.
 
 ### Required Software/Hardware
 * OpenVPN Server (can be ran on loopback), with an publicly facing SSH daemon 
