@@ -1,4 +1,4 @@
-* I've depracated my website due to lack of time to maintain it. I would rather have no website than an outdated one.*
+*I've depracated my website due to lack of time to maintain it. I would rather have no website than an outdated one.*
 # my-webstack
 
 This repository will contain everything I run publicly over http(s)\*.
